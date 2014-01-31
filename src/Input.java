@@ -51,6 +51,12 @@ public class Input {
             byte[] derivedMessage = message.getMessage();
             if (((int) derivedMessage[2]) != 0){
                 playedNotes.add(derivedMessage[1]);
+                // TODO: Dynamic music analysis goes here
+                if (playedNotes.size() % 4 == 0){
+                    Output.playNote(derivedMessage[1] - 24, 100);
+                    Output.playNote(derivedMessage[1] - 20, 100);
+                    Output.playNote(derivedMessage[1] - 17, 100);
+                }
             }
         }
 

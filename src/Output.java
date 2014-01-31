@@ -18,15 +18,43 @@ public class Output {
         }
     }
 
-    public static void playMajorChord(int rootNote, int velocity){
-        playNote(rootNote, velocity);
-        playNote(rootNote + 4, velocity);
-        playNote(rootNote + 7, velocity);
+    public static void playMajorChord(int rootNote, int velocity, int inversion){
+        switch (inversion){
+            case 0:
+                playNote(rootNote, velocity);
+                playNote(rootNote + 4, velocity);
+                playNote(rootNote + 7, velocity);
+                break;
+            case 1:
+                playNote(rootNote + 12, velocity);
+                playNote(rootNote + 4, velocity);
+                playNote(rootNote + 7, velocity);
+                break;
+            case 2:
+                playNote(rootNote + 12, velocity);
+                playNote(rootNote + 16, velocity);
+                playNote(rootNote + 7, velocity);
+                break;
+        }
     }
 
-    public static void playMinorChord(int rootNote, int velocity){
-        playNote(rootNote, velocity);
-        playNote(rootNote + 3, velocity);
-        playNote(rootNote + 7, velocity);
+    public static void playMinorChord(int rootNote, int velocity, int inversion){
+        switch (inversion){
+            case 0:
+                playNote(rootNote, velocity);
+                playNote(rootNote + 3, velocity);
+                playNote(rootNote + 7, velocity);
+                break;
+            case 1:
+                playNote(rootNote + 12, velocity);
+                playNote(rootNote + 3, velocity);
+                playNote(rootNote + 7, velocity);
+                break;
+            case 2:
+                playNote(rootNote + 12, velocity);
+                playNote(rootNote + 15, velocity);
+                playNote(rootNote + 7, velocity);
+                break;
+        }
     }
 }
