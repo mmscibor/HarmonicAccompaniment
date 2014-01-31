@@ -11,9 +11,9 @@ public class BaseClass {
         delay(0.25);
         Output.playNote(61, 100);
         delay(0.25);
-        Output.playMajorChord(60, 100, 0);
+        Output.playChord(60, 100, 0, true);
         delay(0.25);
-        Output.playMinorChord(60, 100, 1);
+        Output.playChord(60, 100, 1, true);
         System.out.println("Note played!");
 
         pauseForInput(input);
@@ -37,6 +37,7 @@ public class BaseClass {
             for (int i = 0; i < input.playedNotes.size(); i++){
                 System.out.println(input.playedNotes.get(i));
             }
+            System.out.println("Size of playedNotes: " + input.playedNotes.size());
             System.exit(0);
         } catch (IOException e) {
             e.printStackTrace();
