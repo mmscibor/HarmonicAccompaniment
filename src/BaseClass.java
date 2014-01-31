@@ -1,8 +1,12 @@
+import java.io.IOException;
+
 public class BaseClass {
 
     final static int MILLISECONDS = 1000;
 
     public static void main(String[] args){
+        Input input = new Input();
+
         Output.playNote(60, 100);
         delay(0.25);
         Output.playNote(61, 100);
@@ -11,6 +15,8 @@ public class BaseClass {
         delay(0.25);
         Output.playMinorChord(60, 100);
         System.out.println("Note played!");
+
+        pauseForInput(input);
     }
 
     // Input is the number of seconds (INTEGER) to delay.
@@ -18,6 +24,18 @@ public class BaseClass {
         try {
             Thread.sleep((long) (numberSeconds * MILLISECONDS));
         } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Once the user presses enter, the application stops running.
+    private static void pauseForInput(Input input){
+        try {
+            System.out.print("Press 'Enter' to exit application.");
+            System.in.read();
+            input.closeDevices();
+            System.exit(0);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
