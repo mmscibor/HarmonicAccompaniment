@@ -31,6 +31,9 @@ public class BaseClass {
     // Once the user presses enter, the application stops running.
     private static void pauseForInput(Input input){
         try {
+            for (int i = 0; i < input.playedNotes.size(); i++){
+                System.out.println(input.playedNotes.get(i));
+            }
             System.out.print("Press 'Enter' to exit application.");
             System.in.read();
             input.closeDevices();
