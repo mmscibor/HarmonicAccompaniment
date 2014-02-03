@@ -2,30 +2,12 @@ import java.io.IOException;
 
 public class BaseClass {
 
-    final static int MILLISECONDS = 1000;
-
     public static void main(String[] args){
         Input input = new Input();
 
-        Output.playNote(60, 100);
-        delay(0.25);
-        Output.playNote(61, 100);
-        delay(0.25);
-        Output.playChord(60, 100, 0, true);
-        delay(0.25);
-        Output.playChord(60, 100, 1, true);
-        System.out.println("Note played!");
+        // TODO: Initialize Machine Learning component.
 
         pauseForInput(input);
-    }
-
-    // Input is the number of seconds (INTEGER) to delay.
-    public static void delay(double numberSeconds){
-        try {
-            Thread.sleep((long) (numberSeconds * MILLISECONDS));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     // Once the user presses enter, the application stops running.

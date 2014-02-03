@@ -2,6 +2,8 @@ import javax.sound.midi.*;
 
 public class Output {
 
+    private final static int MILLISECONDS = 1000;
+
     // This class contains the static methods necessary to send information to the keyboard.
 
     public static void playNote(int noteNumber, int velocity) {
@@ -56,6 +58,15 @@ public class Output {
                     playNote(rootNote + 7, velocity);
                     break;
             }
+        }
+    }
+
+    // Input is the number of seconds (INTEGER) to delay.
+    public static void delay(double numberSeconds){
+        try {
+            Thread.sleep((long) (numberSeconds * MILLISECONDS));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }
