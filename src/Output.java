@@ -4,7 +4,6 @@ public class Output {
 
     private final static int MILLISECONDS = 1000, VELOCITY = 75;
 
-
     // This class contains the static methods necessary to send information to the keyboard.
 
     public static void playNote(int noteNumber, int velocity) {
