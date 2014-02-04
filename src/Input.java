@@ -1,6 +1,5 @@
 import javax.sound.midi.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -71,22 +70,17 @@ public class Input {
     }
 
     private int machineKey() {
-        int[] pointsVectorKey = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-
-        for (int i=previousLength; i<playedNotes.size(); i++){
-            pointsVectorNotes[playedNotes.get(i)%12]++;
+        for (int i = previousLength; i < playedNotes.size(); i++) {
+            pointsVectorNotes[playedNotes.get(i) % 12]++;
         }
-
 
         previousLength = playedNotes.size();
 
-        for (int i=0; i<pointsVectorNotes.length; i++){
-            for (int key = 0; key < 12; key++) {
-                for (int note = 0; note < 7; note++) {
-                    if (GenChordProgression.keyMatrix[key][note] == i) {
-                        pointsVectorKey[key] += pointsVectorNotes[i];
-                    }
-                }
+        int[] pointsVectorKey = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+        for (int key = 0; key < 12; key++) {
+            for (int note = 0; note < GenChordProgression.keyMatrix[key].length; note++) {
+                pointsVectorKey[key] += pointsVectorNotes[GenChordProgression.keyMatrix[key][note]];
             }
         }
 
@@ -101,11 +95,15 @@ public class Input {
             if (array[i] > max) {
                 max = array[i];
                 maxIndex = i;
-                maxList.add(maxIndex);
-            } else if (array[i] == max) {
+            }
+        }
+
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == max){
                 maxList.add(i);
             }
         }
+
         if (maxList.size() == 1) {
             return maxIndex;
         } else {
