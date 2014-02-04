@@ -1,12 +1,14 @@
 import javax.sound.midi.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public class Input {
 
     MidiDevice device;
     MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
-    List<Byte> playedNotes = new ArrayList<Byte>();
+    List<Integer> playedNotes = new ArrayList<Integer>();
 
     public Input() {
         for (int i = 0; i < infos.length; i++) {
@@ -49,18 +51,74 @@ public class Input {
     private class MidiInputReceiver implements Receiver {
         public void send(MidiMessage message, long timeStamp) {
             byte[] derivedMessage = message.getMessage();
-            if (((int) derivedMessage[2]) != 0){
-                playedNotes.add(derivedMessage[1]);
-                Output.playNote(derivedMessage[1] + 7, 100);
-                // TODO: Dynamic music analysis goes here
-                // TODO: Figure out a way to determine note durations
-                if (playedNotes.size() % 4 == 0){
-                    Output.playChord(derivedMessage[1] - 24, 100, 0, true);
-                }
+            if (((int) derivedMessage[2]) != 0) {
+                System.out.println("Note played");
+                playedNotes.add((int) derivedMessage[1]);
+                machineLearn();
             }
         }
 
         public void close() {
+        }
+    }
+
+    private void machineLearn() {
+        if (playedNotes.size() % 10 == 0) {
+            System.out.println(machineKey());
+        }
+    }
+
+    private int machineKey() {
+        Integer[] playedNotesArray = playedNotes.toArray(new Integer[playedNotes.size()]);
+        int[] pointsVector = new int[12];
+        HashMap<Integer, Integer> noteCount = new HashMap<Integer, Integer>();
+        // TODO: Dynamic programming
+
+        for (int i=0; i < pointsVector.length; i++){
+            pointsVector[i] = 0;
+        }
+
+        for (int i = 0; i < playedNotesArray.length; i++) {
+            playedNotesArray[i] = playedNotesArray[i] % 12;
+            if (noteCount.containsKey(playedNotesArray[i])) {
+                noteCount.put(playedNotesArray[i], noteCount.get(playedNotesArray[i]) + 1);
+            } else {
+                noteCount.put(playedNotesArray[i], 1);
+            }
+        }
+
+        for (int uniqueNote : noteCount.keySet()) {
+            for (int key = 0; key < 12; key++) {
+                for (int note = 0; note < 7; note++) {
+                    if (GenChordProgression.keyMatrix[key][note] == uniqueNote) {
+                        pointsVector[key] = pointsVector[key] + noteCount.get(uniqueNote);
+                    }
+                }
+            }
+        }
+
+        return getMax(pointsVector);
+    }
+
+    private int getMax(int[] array) {
+        int max = 0, maxIndex = 0;
+        List<Integer> maxList = new ArrayList<Integer>();
+
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] > max) {
+                max = array[i];
+                maxIndex = i;
+                maxList.add(maxIndex);
+            } else if (array[i] == max) {
+                maxList.add(i);
+            }
+        }
+        if (maxList.size() == 1) {
+            return maxIndex;
+        } else {
+            Random random = new Random();
+            int index = random.nextInt(maxList.size());
+            return maxList.get(index);
         }
     }
 }

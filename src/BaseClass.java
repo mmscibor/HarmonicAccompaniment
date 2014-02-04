@@ -3,6 +3,7 @@ import java.io.IOException;
 public class BaseClass {
 
     public static void main(String[] args){
+        GenChordProgression.createKeyMatrix();
         Input input = new Input();
 
         // TODO: Initialize Machine Learning component.
@@ -16,9 +17,6 @@ public class BaseClass {
             System.out.print("Press 'Enter' to exit application.");
             System.in.read();
             input.closeDevices();
-            for (int i = 0; i < input.playedNotes.size(); i++){
-                System.out.println(input.playedNotes.get(i));
-            }
             System.out.println("Size of playedNotes: " + input.playedNotes.size());
             System.exit(0);
         } catch (IOException e) {

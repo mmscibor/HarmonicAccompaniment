@@ -2,7 +2,8 @@ import javax.sound.midi.*;
 
 public class Output {
 
-    private final static int MILLISECONDS = 1000;
+    private final static int MILLISECONDS = 1000, VELOCITY = 75;
+
 
     // This class contains the static methods necessary to send information to the keyboard.
 
@@ -20,44 +21,86 @@ public class Output {
         }
     }
 
-    public static void playChord(int rootNote, int velocity, int inversion, boolean major) {
-        // TODO: Change how this method works, make it take as an input an int[3]
-        if (major) {
-            switch (inversion) {
-                case 0:
-                    playNote(rootNote, velocity);
-                    playNote(rootNote + 4, velocity);
-                    playNote(rootNote + 7, velocity);
-                    break;
-                case 1:
-                    playNote(rootNote + 12, velocity);
-                    playNote(rootNote + 4, velocity);
-                    playNote(rootNote + 7, velocity);
-                    break;
-                case 2:
-                    playNote(rootNote + 12, velocity);
-                    playNote(rootNote + 16, velocity);
-                    playNote(rootNote + 7, velocity);
-                    break;
-            }
-        } else {
-            switch (inversion) {
-                case 0:
-                    playNote(rootNote, velocity);
-                    playNote(rootNote + 3, velocity);
-                    playNote(rootNote + 7, velocity);
-                    break;
-                case 1:
-                    playNote(rootNote + 12, velocity);
-                    playNote(rootNote + 3, velocity);
-                    playNote(rootNote + 7, velocity);
-                    break;
-                case 2:
-                    playNote(rootNote + 12, velocity);
-                    playNote(rootNote + 15, velocity);
-                    playNote(rootNote + 7, velocity);
-                    break;
-            }
+    public static void playChord(int chordNumber, int inversion, int key) {
+        switch (chordNumber){
+            case 1:
+                playMajorChord(48 + key - 1, inversion);
+                break;
+            case 2:
+                playMinorChord(48 + key + 1, inversion);
+                break;
+            case 3:
+                playMinorChord(48 + key + 3, inversion);
+                break;
+            case 4:
+                playMajorChord(48 + key + 4, inversion);
+                break;
+            case 5:
+                playMajorChord(48 + key + 6, inversion);
+                break;
+            case 6:
+                playMinorChord(48 + key + 8, inversion);
+                break;
+            case 7:
+                int dimBaseNote = 48 + key + 10;
+                switch (inversion) {
+                    case 0:
+                        playNote(dimBaseNote, VELOCITY);
+                        playNote(dimBaseNote + 3, VELOCITY);
+                        playNote(dimBaseNote + 6, VELOCITY);
+                        break;
+                    case 1:
+                        playNote(dimBaseNote + 12, VELOCITY);
+                        playNote(dimBaseNote + 3, VELOCITY);
+                        playNote(dimBaseNote + 6, VELOCITY);
+                        break;
+                    case 2:
+                        playNote(dimBaseNote + 12, VELOCITY);
+                        playNote(dimBaseNote + 15, VELOCITY);
+                        playNote(dimBaseNote + 6, VELOCITY);
+                        break;
+                }
+                break;
+        }
+    }
+
+    private static void playMajorChord(int noteNumber, int inversion){
+        switch (inversion) {
+            case 0:
+                playNote(noteNumber, VELOCITY);
+                playNote(noteNumber + 4, VELOCITY);
+                playNote(noteNumber + 7, VELOCITY);
+                break;
+            case 1:
+                playNote(noteNumber + 12, VELOCITY);
+                playNote(noteNumber + 4, VELOCITY);
+                playNote(noteNumber + 7, VELOCITY);
+                break;
+            case 2:
+                playNote(noteNumber + 12, VELOCITY);
+                playNote(noteNumber + 16, VELOCITY);
+                playNote(noteNumber + 7, VELOCITY);
+                break;
+        }
+    }
+
+    private static void playMinorChord(int noteNumber, int inversion){
+        switch (inversion) {
+            case 0:
+                playNote(noteNumber, VELOCITY);
+                playNote(noteNumber + 3, VELOCITY);
+                playNote(noteNumber + 7, VELOCITY);
+                break;
+            case 1:
+                playNote(noteNumber + 12, VELOCITY);
+                playNote(noteNumber + 3, VELOCITY);
+                playNote(noteNumber + 7, VELOCITY);
+                break;
+            case 2:
+                playNote(noteNumber + 12, VELOCITY);
+                playNote(noteNumber + 15, VELOCITY);
+                playNote(noteNumber + 7, VELOCITY);
+                break;
         }
     }
 
