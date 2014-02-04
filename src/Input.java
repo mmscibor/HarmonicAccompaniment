@@ -9,6 +9,8 @@ public class Input {
     MidiDevice device;
     MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
     List<Integer> playedNotes = new ArrayList<Integer>();
+    int previousLength = 0;
+    int[] pointsVectorNotes = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
     public Input() {
         for (int i = 0; i < infos.length; i++) {
@@ -69,35 +71,25 @@ public class Input {
     }
 
     private int machineKey() {
-        Integer[] playedNotesArray = playedNotes.toArray(new Integer[playedNotes.size()]);
-        int[] pointsVector = new int[12];
-        HashMap<Integer, Integer> noteCount = new HashMap<Integer, Integer>();
-        // TODO: Dynamic programming
+        int[] pointsVectorKey = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-        for (int i=0; i < pointsVector.length; i++){
-            pointsVector[i] = 0;
+        for (int i=previousLength; i<playedNotes.size(); i++){
+            pointsVectorNotes[playedNotes.get(i)%12]++;
         }
 
-        for (int i = 0; i < playedNotesArray.length; i++) {
-            playedNotesArray[i] = playedNotesArray[i] % 12;
-            if (noteCount.containsKey(playedNotesArray[i])) {
-                noteCount.put(playedNotesArray[i], noteCount.get(playedNotesArray[i]) + 1);
-            } else {
-                noteCount.put(playedNotesArray[i], 1);
-            }
-        }
+        previousLength = playedNotes.size();
 
-        for (int uniqueNote : noteCount.keySet()) {
+        for (int i=0; i<pointsVectorNotes.length; i++){
             for (int key = 0; key < 12; key++) {
                 for (int note = 0; note < 7; note++) {
-                    if (GenChordProgression.keyMatrix[key][note] == uniqueNote) {
-                        pointsVector[key] = pointsVector[key] + noteCount.get(uniqueNote);
+                    if (GenChordProgression.keyMatrix[key][note] == i) {
+                        pointsVectorKey[key] += pointsVectorNotes[i];
                     }
                 }
             }
         }
 
-        return getMax(pointsVector);
+        return getMax(pointsVectorKey);
     }
 
     private int getMax(int[] array) {

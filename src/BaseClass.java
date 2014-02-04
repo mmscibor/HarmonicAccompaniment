@@ -3,7 +3,6 @@ import java.io.IOException;
 public class BaseClass {
 
     public static void main(String[] args){
-        GenChordProgression.createKeyMatrix();
         Input input = new Input();
 
         // TODO: Initialize Machine Learning component.
