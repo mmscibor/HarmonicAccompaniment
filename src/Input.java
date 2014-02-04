@@ -77,6 +77,7 @@ public class Input {
             pointsVectorNotes[playedNotes.get(i)%12]++;
         }
 
+
         previousLength = playedNotes.size();
 
         for (int i=0; i<pointsVectorNotes.length; i++){
