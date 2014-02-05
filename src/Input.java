@@ -53,9 +53,11 @@ public class Input {
         public void send(MidiMessage message, long timeStamp) {
             byte[] derivedMessage = message.getMessage();
             if (((int) derivedMessage[2]) != 0) {
-                System.out.println("Note played");
-                playedNotes.add((int) derivedMessage[1]);
-                machineLearn();
+                playedNotes.add((int) derivedMessage[1]); // Append played note to List
+                truncatePlayedNotes(); // Truncate notes from List if too many
+                if (playedNotes.size() % 20 == 0) { // TODO: Every 20 notes? Come up with something better here
+                    MachineLearning.determineChords(machineKey());
+                }
             }
         }
 
@@ -63,19 +65,13 @@ public class Input {
         }
     }
 
-    private void machineLearn() {
-        if (playedNotes.size() % 10 == 0) {
-            System.out.println(machineKey());
-        }
-    }
-
     private int machineKey() {
+        // Determine the key, based on notes played
         for (int i = previousLength; i < playedNotes.size(); i++) {
             pointsVectorNotes[playedNotes.get(i) % 12]++;
         }
 
         previousLength = playedNotes.size();
-
         int[] pointsVectorKey = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
         for (int key = 0; key < 12; key++) {
@@ -85,6 +81,19 @@ public class Input {
         }
 
         return getMax(pointsVectorKey);
+    }
+
+    private void truncatePlayedNotes() {
+        // Once played notes has exceeded 150 notes, truncate 100 notes and reset some variables.
+        if (playedNotes.size() >= 150) {
+            while (playedNotes.size() > 50) {
+                playedNotes.remove(0);
+            }
+            previousLength = 0;
+            for (int i = 0; i < pointsVectorNotes.length; i++) {
+                pointsVectorNotes[i] = 0;
+            }
+        }
     }
 
     private int getMax(int[] array) {
@@ -99,7 +108,7 @@ public class Input {
         }
 
         for (int i = 0; i < array.length; i++) {
-            if (array[i] == max){
+            if (array[i] == max) {
                 maxList.add(i);
             }
         }

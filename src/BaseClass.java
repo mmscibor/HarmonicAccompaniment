@@ -4,9 +4,6 @@ public class BaseClass {
 
     public static void main(String[] args){
         Input input = new Input();
-
-        // TODO: Initialize Machine Learning component.
-
         pauseForInput(input);
     }
 
