@@ -19,17 +19,15 @@ public class MachineLearning {
 
         int mostRecentNote = playedNotes.get(playedNotes.size() - 1) % 12;
 
-        if (lastChord.getKey() == -1) {
-            boolean contains = false;
-            int index = -1;
-            for (int j = 0; j < notesInKey.length; j++) {
-                if (mostRecentNote == notesInKey[j]) {
-                    contains = true;
-                    index = j;
-                }
+        int index = -1;
+        for (int j = 0; j < notesInKey.length; j++) {
+            if (mostRecentNote == notesInKey[j]) {
+                index = j;
             }
+        }
 
-            if (!contains) {
+        if (lastChord.getKey() == -1) {
+            if (index == -1) {
                 return;
             }
 
@@ -45,7 +43,7 @@ public class MachineLearning {
                 }
             }
 
-            if (lastChord.equals(null)) {
+            if (lastChord.getKey() == -1) {
                 Random random = new Random();
                 int selector = random.nextInt(tonalChords.size());
                 lastChord = tonalChords.get(selector);
@@ -54,12 +52,26 @@ public class MachineLearning {
             int previousChordNumber = lastChord.getChordNumber();
             double[] percentageTransitions = GenChordProgression.transMatrix[previousChordNumber];
 
+            if (index > -1) {
+                for (int i = 0; i < percentageTransitions.length; i++) {
+                    if (i != index && i != (index - 2) % 7 && i != (index - 4) % 7) {
+                        percentageTransitions[i] = percentageTransitions[i]*.50;
+                    }
+                }
+            }
+
+            double totalWeight = 0.0d;
+
+            for (double percent : percentageTransitions) {
+                totalWeight += percent;
+            }
+
             int randomIndex = -1;
-            double random = Math.random();
+            double random = Math.random() * totalWeight;
 
             for (int i = 0; i < percentageTransitions.length; i++) {
                 random -= percentageTransitions[i];
-                if (random <= 0.0d){
+                if (random <= 0.0d) {
                     randomIndex = i;
                     break;
                 }
