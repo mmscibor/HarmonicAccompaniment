@@ -1,15 +1,13 @@
 import javax.sound.midi.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Input {
 
     MidiDevice device;
     MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
     List<Integer> playedNotes = new ArrayList<Integer>();
-    int previousLength = 0;
-    int[] pointsVectorNotes = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    MachineLearning machineLearning;
 
     public Input() {
         for (int i = 0; i < infos.length; i++) {
@@ -54,72 +52,14 @@ public class Input {
             byte[] derivedMessage = message.getMessage();
             if (((int) derivedMessage[2]) != 0) {
                 playedNotes.add((int) derivedMessage[1]); // Append played note to List
-                truncatePlayedNotes(); // Truncate notes from List if too many
-                if (playedNotes.size() % 20 == 0) { // TODO: Every 20 notes? Come up with something better here
-                    MachineLearning.determineChords(machineKey());
+                if (playedNotes.size() % 10 == 0) { // TODO: Every 20 notes? Come up with something better here
+                    machineLearning = new MachineLearning(playedNotes);
+                    machineLearning.determineChords();
                 }
             }
         }
 
         public void close() {
-        }
-    }
-
-    private int machineKey() {
-        // Determine the key, based on notes played
-        for (int i = previousLength; i < playedNotes.size(); i++) {
-            pointsVectorNotes[playedNotes.get(i) % 12]++;
-        }
-
-        previousLength = playedNotes.size();
-        int[] pointsVectorKey = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-
-        for (int key = 0; key < 12; key++) {
-            for (int note = 0; note < GenChordProgression.keyMatrix[key].length; note++) {
-                pointsVectorKey[key] += pointsVectorNotes[GenChordProgression.keyMatrix[key][note]];
-            }
-        }
-
-        return getMax(pointsVectorKey);
-    }
-
-    private void truncatePlayedNotes() {
-        // Once played notes has exceeded 150 notes, truncate 100 notes and reset some variables.
-        // TODO: Make sure this is correct
-        if (playedNotes.size() >= 150) {
-            while (playedNotes.size() > 50) {
-                playedNotes.remove(0);
-            }
-            previousLength = 0;
-            for (int i = 0; i < pointsVectorNotes.length; i++) {
-                pointsVectorNotes[i] = 0;
-            }
-        }
-    }
-
-    private int getMax(int[] array) {
-        int max = 0, maxIndex = 0;
-        List<Integer> maxList = new ArrayList<Integer>();
-
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] > max) {
-                max = array[i];
-                maxIndex = i;
-            }
-        }
-
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] == max) {
-                maxList.add(i);
-            }
-        }
-
-        if (maxList.size() == 1) {
-            return maxIndex;
-        } else {
-            Random random = new Random();
-            int index = random.nextInt(maxList.size());
-            return maxList.get(index);
         }
     }
 }

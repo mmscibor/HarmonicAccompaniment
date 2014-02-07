@@ -21,7 +21,7 @@ public class Output {
     }
 
     public static void playChord(int chordNumber, int inversion, int key) {
-        switch (chordNumber){
+        switch (chordNumber) {
             case 1:
                 playMajorChord(48 + key - 1, inversion);
                 break;
@@ -49,21 +49,21 @@ public class Output {
                         playNote(dimBaseNote + 6, VELOCITY);
                         break;
                     case 1:
-                        playNote(dimBaseNote + 12, VELOCITY);
+                        playNote(dimBaseNote, VELOCITY);
                         playNote(dimBaseNote + 3, VELOCITY);
-                        playNote(dimBaseNote + 6, VELOCITY);
+                        playNote(dimBaseNote - 6, VELOCITY);
                         break;
                     case 2:
-                        playNote(dimBaseNote + 12, VELOCITY);
-                        playNote(dimBaseNote + 15, VELOCITY);
-                        playNote(dimBaseNote + 6, VELOCITY);
+                        playNote(dimBaseNote, VELOCITY);
+                        playNote(dimBaseNote - 9, VELOCITY);
+                        playNote(dimBaseNote - 6, VELOCITY);
                         break;
                 }
                 break;
         }
     }
 
-    private static void playMajorChord(int noteNumber, int inversion){
+    private static void playMajorChord(int noteNumber, int inversion) {
         switch (inversion) {
             case 0:
                 playNote(noteNumber, VELOCITY);
@@ -71,19 +71,19 @@ public class Output {
                 playNote(noteNumber + 7, VELOCITY);
                 break;
             case 1:
-                playNote(noteNumber + 12, VELOCITY);
+                playNote(noteNumber, VELOCITY);
                 playNote(noteNumber + 4, VELOCITY);
-                playNote(noteNumber + 7, VELOCITY);
+                playNote(noteNumber - 5, VELOCITY);
                 break;
             case 2:
-                playNote(noteNumber + 12, VELOCITY);
-                playNote(noteNumber + 16, VELOCITY);
-                playNote(noteNumber + 7, VELOCITY);
+                playNote(noteNumber, VELOCITY);
+                playNote(noteNumber - 8, VELOCITY);
+                playNote(noteNumber - 5, VELOCITY);
                 break;
         }
     }
 
-    private static void playMinorChord(int noteNumber, int inversion){
+    private static void playMinorChord(int noteNumber, int inversion) {
         switch (inversion) {
             case 0:
                 playNote(noteNumber, VELOCITY);
@@ -104,7 +104,7 @@ public class Output {
     }
 
     // Input is the number of seconds (INTEGER) to delay.
-    public static void delay(double numberSeconds){
+    public static void delay(double numberSeconds) {
         try {
             Thread.sleep((long) (numberSeconds * MILLISECONDS));
         } catch (InterruptedException e) {
