@@ -85,6 +85,7 @@ public class Input {
 
     private void truncatePlayedNotes() {
         // Once played notes has exceeded 150 notes, truncate 100 notes and reset some variables.
+        // TODO: Make sure this is correct
         if (playedNotes.size() >= 150) {
             while (playedNotes.size() > 50) {
                 playedNotes.remove(0);
