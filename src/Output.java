@@ -2,7 +2,7 @@ import javax.sound.midi.*;
 
 public class Output {
 
-    private final static int MILLISECONDS = 1000, VELOCITY = 75;
+    private final static int MILLISECONDS = 1000, VELOCITY = 80;
 
     // This class contains the static methods necessary to send information to the keyboard.
 
@@ -20,29 +20,29 @@ public class Output {
         }
     }
 
-    public static void playChord(int chordNumber, int inversion, int key) {
-        switch (chordNumber) {
+    public static void playChord(Chord chord) {
+        switch (chord.getChordNumber()) {
             case 1:
-                playMajorChord(48 + key - 1, inversion);
+                playMajorChord(48 + chord.getKey() - 1, chord.getInversion());
                 break;
             case 2:
-                playMinorChord(48 + key + 1, inversion);
+                playMinorChord(48 + chord.getKey() + 1, chord.getInversion());
                 break;
             case 3:
-                playMinorChord(48 + key + 3, inversion);
+                playMinorChord(48 + chord.getKey() + 3, chord.getInversion());
                 break;
             case 4:
-                playMajorChord(48 + key + 4, inversion);
+                playMajorChord(48 + chord.getKey() + 4, chord.getInversion());
                 break;
             case 5:
-                playMajorChord(48 + key + 6, inversion);
+                playMajorChord(48 + chord.getKey() + 6, chord.getInversion());
                 break;
             case 6:
-                playMinorChord(48 + key + 8, inversion);
+                playMinorChord(48 + chord.getKey() + 8, chord.getInversion());
                 break;
             case 7:
-                int dimBaseNote = 48 + key + 10;
-                switch (inversion) {
+                int dimBaseNote = 48 + chord.getKey() + 10;
+                switch (chord.getInversion()) {
                     case 0:
                         playNote(dimBaseNote, VELOCITY);
                         playNote(dimBaseNote + 3, VELOCITY);

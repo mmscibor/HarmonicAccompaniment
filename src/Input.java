@@ -52,7 +52,7 @@ public class Input {
             byte[] derivedMessage = message.getMessage();
             if (((int) derivedMessage[2]) != 0) {
                 playedNotes.add((int) derivedMessage[1]); // Append played note to List
-                if (playedNotes.size() % 10 == 0) { // TODO: Every 20 notes? Come up with something better here
+                if (playedNotes.size() % 4 == 0) { // TODO: Every 20 notes? Come up with something better here
                     machineLearning = new MachineLearning(playedNotes);
                     machineLearning.determineChords();
                 }
