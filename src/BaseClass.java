@@ -1,16 +1,6 @@
-import be.ac.ulg.montefiore.run.jahmm.Hmm;
-import be.ac.ulg.montefiore.run.jahmm.ObservationDiscrete;
-import be.ac.ulg.montefiore.run.jahmm.OpdfDiscreteFactory;
-
 import java.io.IOException;
-import java.util.List;
 
 public class BaseClass {
-
-    public enum State {
-        C, Csh, D, Dsh, E, F, Fsh, G, Gsh, A, Ash, B;
-
-    }
 
     public static void main(String[] args){
         Input input = new Input();
