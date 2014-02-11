@@ -3,8 +3,10 @@ import java.io.IOException;
 public class BaseClass {
 
     public static void main(String[] args){
-        Input input = new Input();
-        pauseForInput(input);
+//        Input input = new Input();
+//        pauseForInput(input);
+
+
     }
 
     // Once the user presses enter, the application stops running.
