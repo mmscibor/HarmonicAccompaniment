@@ -121,6 +121,59 @@ public class MachineLearning {
         if (maxList.size() == 1) {
             return maxIndex;
         } else {
+            int maxNote = 0, maxNoteIndex = 0;
+            List<Integer> maxNoteList = new ArrayList<Integer>();
+
+            for (int i = 0; i < pointsVectorNotes.length; i++) {
+                if (pointsVectorNotes[i] > maxNote) {
+                    maxNote = pointsVectorNotes[i];
+                    maxNoteIndex = i;
+                }
+            }
+
+            for (int i = 0; i < array.length; i++) {
+                if (array[i] == max) {
+                    maxNoteList.add(i);
+                }
+            }
+
+            int[] maxKeys = new int[(maxList.size()) * 2];
+            for (int i = 0; i < maxList.size(); i++) {
+                maxKeys[i] = maxList.get(i);
+                maxKeys[i + maxList.size()] = GenChordProgression.keyMatrix[maxList.get(i)][5];
+            }
+
+            if (maxNoteList.size() == 1) {
+                for (int i = 0; i < maxList.size(); i++) {
+                    if (maxNoteIndex == maxKeys[i]){
+                        return maxKeys[i]; // major key
+                    }
+                }
+                for (int i = 0; i < maxList.size(); i++) {
+                    if (maxNoteIndex == maxKeys[i+maxList.size()]){
+                        return maxKeys[i]; // minor key -- returns key = 0 for key of A minor
+                    }
+                }
+            }
+            else {
+                for (int maxNoteInd:maxNoteList){
+                    for (int i = 0; i < maxList.size(); i++) {
+                        if (maxNoteInd == maxKeys[i]){
+                            return maxKeys[i]; // major key
+                        }
+                    }
+                }
+                for (int maxNoteInd:maxNoteList){
+                    for (int i = 0; i < maxList.size(); i++) {
+                        if (maxNoteInd == maxKeys[i+maxList.size()]){
+                            return maxKeys[i]; // minor key -- returns key = 0 for key of A minor
+                        }
+                    }
+                }
+            }
+            
+            // if no key stands out as being more likely, the original code to choose one at random is utilized
+            
             Random random = new Random();
             int index = random.nextInt(maxList.size());
             return maxList.get(index);
