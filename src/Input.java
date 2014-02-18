@@ -50,12 +50,12 @@ public class Input {
 
     private class MidiInputReceiver implements Receiver {
         public void send(MidiMessage message, long timeStamp) {
-            if (playChord) {
-                Output.playChord(MachineLearning.lastChord);
-                playChord = false;
-            }
             byte[] derivedMessage = message.getMessage();
             if (((int) derivedMessage[2]) != 0) {
+                if (playChord) {
+                    Output.playChord(MachineLearning.lastChord);
+                    playChord = false;
+                }
                 playedNotes.add((int) derivedMessage[1]); // Append played note to List
                 if (playedNotes.size() % 4 == 0) { // TODO: Every 20 notes? Come up with something better here
                     machineLearning = new MachineLearning(playedNotes); // TODO: If not real time, can speed this up
