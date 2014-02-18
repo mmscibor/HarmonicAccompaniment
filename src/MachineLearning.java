@@ -39,7 +39,8 @@ public class MachineLearning {
                     int predictedChord = maxInArray(percentageTransitions);
                     int[] notesInChord = GenChordProgression.noteInChord(key, predictedChord);
                     if (findInArray(notesInChord, predictedNote) >= 0) {
-                        lastChord = new Chord(predictedChord, 0, key);
+//                        int inversion = getInversion(predictedChord, key);
+                        lastChord.setChord(predictedChord, 0, key);
                     } else {
                         percentageTransitions[predictedChord] = 0;
                     }
@@ -203,4 +204,9 @@ public class MachineLearning {
         }
         return -1;
     }
+//
+//    private static int getInversion(int predictedChordNumber, int key) {
+//        int previousInversion = lastChord.getInversion(), previousChordNumber = lastChord.getChordNumber();
+//
+//    }
 }
