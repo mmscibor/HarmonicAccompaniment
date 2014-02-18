@@ -21,7 +21,16 @@ public class GenChordProgression {
             {10, 0, 2, 3, 5, 7, 9},
             {11, 1, 3, 4, 6, 8, 10}};
 
-    public static double getTrans(int row, int column){
-        return transMatrix[row-1][column-1];
+    public static double getTrans(int row, int column) {
+        return transMatrix[row - 1][column - 1];
+    }
+
+    public static int[] noteInChord(int key, int chordNumber) {
+        int[] keyArray = keyMatrix[key];
+        int[] noteNumbers = new int[3];
+        noteNumbers[0] = keyArray[chordNumber];
+        noteNumbers[1] = keyArray[(chordNumber + 2) % 7];
+        noteNumbers[2] = keyArray[(chordNumber + 4) % 7];
+        return noteNumbers;
     }
 }

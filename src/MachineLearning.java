@@ -7,83 +7,48 @@ public class MachineLearning {
     int previousLength = 0;
     int[] pointsVectorNotes = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     List<Integer> playedNotes;
-    static Chord lastChord = new Chord(-1, -1, -1), nextChord;
+    static Chord lastChord = new Chord(-1, -1, -1);
+    private static final int NUM_COL = 7, NUM_ROW = 7;
 
     public MachineLearning(List<Integer> playedNotes) {
         this.playedNotes = playedNotes;
     }
 
     public void determineChords() {
-        int key = machineKey();
+        int key = getKey();
         int[] notesInKey = GenChordProgression.keyMatrix[key];
 
         int mostRecentNote = playedNotes.get(playedNotes.size() - 1) % 12;
+        int chordNumber = findInArray(notesInKey, mostRecentNote);
 
-        int index = -1;
-        for (int j = 0; j < notesInKey.length; j++) {
-            if (mostRecentNote == notesInKey[j]) {
-                index = j;
-            }
-        }
-
-        if (lastChord.getKey() == -1) {
-            if (index == -1) {
+        if (lastChord.getChordNumber() == -1) {
+            if (chordNumber >= 0) {
+                lastChord = new Chord(chordNumber, 0, key);
+            } else {
                 return;
             }
-
-            List<Chord> tonalChords = new ArrayList<Chord>();
-
-            tonalChords.add(new Chord(index, 0, key));
-            tonalChords.add(new Chord((index - 2) % 7, 0, key));
-            tonalChords.add(new Chord((index - 4) % 7, 0, key));
-
-            for (Chord chord : tonalChords) {
-                if (chord.isMajor()) {
-                    lastChord = chord;
-                }
-            }
-
-            if (lastChord.getKey() == -1) {
-                Random random = new Random();
-                int selector = random.nextInt(tonalChords.size());
-                lastChord = tonalChords.get(selector);
-            }
         } else {
-            int previousChordNumber = lastChord.getChordNumber();
-            double[] percentageTransitions = GenChordProgression.transMatrix[previousChordNumber];
+            if (chordNumber >= 0) {
+                double[] noteTransMatrix = getTransitionMatrix(playedNotes, key)[chordNumber];
+                int predictedNote = maxInArray(noteTransMatrix);
 
-            if (index > -1) {
+                int previousChordNumber = lastChord.getChordNumber();
+                double[] percentageTransitions = GenChordProgression.transMatrix[previousChordNumber];
+
                 for (int i = 0; i < percentageTransitions.length; i++) {
-                    if (i != index && i != (index - 2) % 7 && i != (index - 4) % 7) {
-                        percentageTransitions[i] = percentageTransitions[i]*.50;
+                    int predictedChord = maxInArray(percentageTransitions);
+                    int[] notesInChord = GenChordProgression.noteInChord(key, predictedChord);
+                    if (findInArray(notesInChord, predictedNote) >= 0) {
+                        lastChord = new Chord(predictedChord, 0, key);
+                    } else {
+                        percentageTransitions[predictedChord] = 0;
                     }
                 }
             }
-
-            double totalWeight = 0.0d;
-
-            for (double percent : percentageTransitions) {
-                totalWeight += percent;
-            }
-
-            int randomIndex = -1;
-            double random = Math.random() * totalWeight;
-
-            for (int i = 0; i < percentageTransitions.length; i++) {
-                random -= percentageTransitions[i];
-                if (random <= 0.0d) {
-                    randomIndex = i;
-                    break;
-                }
-            }
-
-            lastChord = new Chord(randomIndex, 0, key);
         }
-
-        Output.playChord(lastChord);
     }
 
-    private int machineKey() {
+    private int getKey() {
         // Determine the key, based on notes played
         for (int i = previousLength; i < playedNotes.size(); i++) {
             pointsVectorNotes[playedNotes.get(i) % 12]++;
@@ -98,10 +63,37 @@ public class MachineLearning {
             }
         }
 
-        return getMax(pointsVectorKey);
+        return maxInArray(pointsVectorKey);
     }
 
-    private int getMax(int[] array) {
+    private int maxInArray(double[] array) {
+        double max = 0;
+        int maxIndex = 0;
+        List<Integer> maxList = new ArrayList<Integer>();
+
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] > max) {
+                max = array[i];
+                maxIndex = i;
+            }
+        }
+
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == max) {
+                maxList.add(i);
+            }
+        }
+
+        if (maxList.size() == 1) {
+            return maxIndex;
+        } else {
+            Random random = new Random();
+            int index = random.nextInt(maxList.size());
+            return maxList.get(index);
+        }
+    }
+
+    private int maxInArray(int[] array) {
         int max = 0, maxIndex = 0;
         List<Integer> maxList = new ArrayList<Integer>();
 
@@ -145,38 +137,70 @@ public class MachineLearning {
 
             if (maxNoteList.size() == 1) {
                 for (int i = 0; i < maxList.size(); i++) {
-                    if (maxNoteIndex == maxKeys[i]){
+                    if (maxNoteIndex == maxKeys[i]) {
                         return maxKeys[i]; // major key
                     }
                 }
                 for (int i = 0; i < maxList.size(); i++) {
-                    if (maxNoteIndex == maxKeys[i+maxList.size()]){
+                    if (maxNoteIndex == maxKeys[i + maxList.size()]) {
                         return maxKeys[i]; // minor key -- returns key = 0 for key of A minor
                     }
                 }
-            }
-            else {
-                for (int maxNoteInd:maxNoteList){
+            } else {
+                for (int maxNoteInd : maxNoteList) {
                     for (int i = 0; i < maxList.size(); i++) {
-                        if (maxNoteInd == maxKeys[i]){
+                        if (maxNoteInd == maxKeys[i]) {
                             return maxKeys[i]; // major key
                         }
                     }
                 }
-                for (int maxNoteInd:maxNoteList){
+                for (int maxNoteInd : maxNoteList) {
                     for (int i = 0; i < maxList.size(); i++) {
-                        if (maxNoteInd == maxKeys[i+maxList.size()]){
+                        if (maxNoteInd == maxKeys[i + maxList.size()]) {
                             return maxKeys[i]; // minor key -- returns key = 0 for key of A minor
                         }
                     }
                 }
             }
-            
             // if no key stands out as being more likely, the original code to choose one at random is utilized
-            
             Random random = new Random();
             int index = random.nextInt(maxList.size());
             return maxList.get(index);
         }
+    }
+
+    private double[][] getTransitionMatrix(List<Integer> playedNotes, int key) {
+        double[][] transitionArray = new double[NUM_ROW][NUM_COL];
+
+        for (int i = 0; i < playedNotes.size() - 1; i++) {
+            int row = findInArray(GenChordProgression.keyMatrix[key], playedNotes.get(i) % 12);
+            int col = findInArray(GenChordProgression.keyMatrix[key], playedNotes.get(i + 1) % 12);
+            if (row != -1 && col != -1) {
+                transitionArray[row][col]++;
+            }
+        }
+
+        for (int i = 0; i < NUM_ROW; i++) {
+            int sum = 0;
+            for (int j = 0; j < NUM_COL; j++) {
+                sum += transitionArray[i][j];
+            }
+            if (sum != 0) {
+                for (int j = 0; j < NUM_COL; j++) {
+                    transitionArray[i][j] = transitionArray[i][j] / sum;
+                }
+            }
+        }
+
+        return transitionArray;
+    }
+
+    private static int findInArray(int[] array, int value) {
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

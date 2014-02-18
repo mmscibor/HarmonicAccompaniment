@@ -2,7 +2,7 @@ import javax.sound.midi.*;
 
 public class Output {
 
-    private final static int MILLISECONDS = 1000, VELOCITY = 80;
+    private final static int MILLISECONDS = 1000, VELOCITY = 90;
 
     // This class contains the static methods necessary to send information to the keyboard.
 
@@ -22,25 +22,25 @@ public class Output {
 
     public static void playChord(Chord chord) {
         switch (chord.getChordNumber()) {
-            case 1:
+            case 0:
                 playMajorChord(48 + chord.getKey() - 1, chord.getInversion());
                 break;
-            case 2:
+            case 1:
                 playMinorChord(48 + chord.getKey() + 1, chord.getInversion());
                 break;
-            case 3:
+            case 2:
                 playMinorChord(48 + chord.getKey() + 3, chord.getInversion());
                 break;
-            case 4:
+            case 3:
                 playMajorChord(48 + chord.getKey() + 4, chord.getInversion());
                 break;
-            case 5:
+            case 4:
                 playMajorChord(48 + chord.getKey() + 6, chord.getInversion());
                 break;
-            case 6:
+            case 5:
                 playMinorChord(48 + chord.getKey() + 8, chord.getInversion());
                 break;
-            case 7:
+            case 6:
                 int dimBaseNote = 48 + chord.getKey() + 10;
                 switch (chord.getInversion()) {
                     case 0:

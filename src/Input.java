@@ -1,7 +1,6 @@
 import javax.sound.midi.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Input {
 
@@ -9,6 +8,7 @@ public class Input {
     MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
     List<Integer> playedNotes = new ArrayList<Integer>();
     MachineLearning machineLearning;
+    boolean playChord = false;
 
     public Input() {
         for (int i = 0; i < infos.length; i++) {
@@ -50,12 +50,17 @@ public class Input {
 
     private class MidiInputReceiver implements Receiver {
         public void send(MidiMessage message, long timeStamp) {
+            if (playChord) {
+                Output.playChord(MachineLearning.lastChord);
+                playChord = false;
+            }
             byte[] derivedMessage = message.getMessage();
             if (((int) derivedMessage[2]) != 0) {
                 playedNotes.add((int) derivedMessage[1]); // Append played note to List
                 if (playedNotes.size() % 4 == 0) { // TODO: Every 20 notes? Come up with something better here
-                    machineLearning = new MachineLearning(playedNotes);
+                    machineLearning = new MachineLearning(playedNotes); // TODO: If not real time, can speed this up
                     machineLearning.determineChords();
+                    playChord = true;
                 }
             }
         }
