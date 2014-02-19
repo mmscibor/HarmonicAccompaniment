@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -8,7 +9,7 @@ public class MachineLearning {
     int[] pointsVectorNotes = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     List<Integer> playedNotes;
     static Chord lastChord = new Chord(-1, -1, -1);
-    private static final int NUM_COL = 7, NUM_ROW = 7;
+    private static final int NUM_COL = 7, NUM_ROW = 7, INVERSIONS_TO_CHOOSE = 3;
 
     public MachineLearning(List<Integer> playedNotes) {
         this.playedNotes = playedNotes;
@@ -39,12 +40,16 @@ public class MachineLearning {
                     int predictedChord = maxInArray(percentageTransitions);
                     int[] notesInChord = GenChordProgression.noteInChord(key, predictedChord);
                     if (findInArray(notesInChord, predictedNote) >= 0) {
-//                        int inversion = getInversion(predictedChord, key);
-                        lastChord.setChord(predictedChord, 0, key);
+                        int inversion = getInversion(predictedChord, key);
+                        lastChord.setChord(predictedChord, inversion, key);
                     } else {
                         percentageTransitions[predictedChord] = 0;
                     }
                 }
+
+                System.out.println("Inversion: " + lastChord.getInversion());
+                System.out.println("Chord Played: " + lastChord.getChordNumber());
+                System.out.println("Predicted Next Note: " + predictedNote);
             }
         }
     }
@@ -204,9 +209,69 @@ public class MachineLearning {
         }
         return -1;
     }
-//
-//    private static int getInversion(int predictedChordNumber, int key) {
-//        int previousInversion = lastChord.getInversion(), previousChordNumber = lastChord.getChordNumber();
-//
-//    }
+
+    private static int getInversion(int predictedChordNumber, int key) {
+        int[] notesInLastChord = GenChordProgression.noteInChord(lastChord.getKey(), lastChord.getChordNumber());
+
+        for (int i = 0; i < notesInLastChord.length - 1; i++) { // Sets acquired notes to 0th inversion
+            if (notesInLastChord[i + 1] < notesInLastChord[i]) {
+                notesInLastChord[i + 1] += 12;
+            }
+        }
+
+        int inversion = lastChord.getInversion();
+
+        switch (inversion) {
+            case 0:
+                break;
+            case 1:
+                notesInLastChord[2] -= 12;
+                break;
+            case 2:
+                notesInLastChord[2] -= 12;
+                notesInLastChord[1] -= 12;
+                break;
+        }
+
+        Arrays.sort(notesInLastChord);
+
+        int[] notesInPredictedChord = GenChordProgression.noteInChord(key, predictedChordNumber);
+
+        for (int i = 0; i < notesInPredictedChord.length - 1; i++) { // Sets acquired notes to 0th inversion
+            if (notesInPredictedChord[i + 1] < notesInPredictedChord[i]) {
+                notesInPredictedChord[i + 1] += 12;
+            }
+        }
+
+        int selectedInversion = 0;
+        int[] distance = {0, 0, 0};
+
+        for (int i = 0; i < INVERSIONS_TO_CHOOSE; i++) {
+            switch (i) {
+                case 0:
+                    break;
+                case 1:
+                    notesInPredictedChord[2] -= 12;
+                    break;
+                case 2:
+                    notesInPredictedChord[2] -= 12;
+                    notesInPredictedChord[1] -= 12;
+                    break;
+            }
+            Arrays.sort(notesInPredictedChord);
+            for (int j = 0; j < notesInLastChord.length; j++) {
+                distance[i] += Math.abs(notesInLastChord[j] - notesInPredictedChord[j]);
+            }
+        }
+
+        int min = 100;
+        for (int i = 0; i < distance.length; i++) {
+            if (distance[i] < min) {
+                min = distance[i];
+                selectedInversion = i;
+            }
+        }
+
+        return selectedInversion;
+    }
 }
