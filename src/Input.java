@@ -7,8 +7,9 @@ public class Input {
     MidiDevice device;
     MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
     List<Integer> playedNotes = new ArrayList<Integer>();
-    MachineLearning machineLearning;
+    List<Long> timeDifferentials = new ArrayList<Long>();
     boolean playChord = false;
+    long currentTimeStamp = System.currentTimeMillis(), nextTime = System.currentTimeMillis();
 
     public Input() {
         for (int i = 0; i < infos.length; i++) {
@@ -57,10 +58,14 @@ public class Input {
                     playChord = false;
                 }
                 playedNotes.add((int) derivedMessage[1]); // Append played note to List
-                if (playedNotes.size() % 4 == 0) { // TODO: Every 20 notes? Come up with something better here
-                    machineLearning = new MachineLearning(playedNotes); // TODO: If not real time, can speed this up
-                    machineLearning.determineChords();
+                timeDifferentials.add(Math.abs(System.currentTimeMillis() - currentTimeStamp));
+                currentTimeStamp = System.currentTimeMillis();
+
+                long selectedTime = Timing.determineTime(timeDifferentials);
+                if (nextTime < System.currentTimeMillis()) {
+                    MachineLearning.determineChords(playedNotes);
                     playChord = true;
+                    nextTime = System.currentTimeMillis() + selectedTime;
                 }
             }
         }

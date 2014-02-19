@@ -5,17 +5,14 @@ import java.util.Random;
 
 public class MachineLearning {
 
-    int previousLength = 0;
-    int[] pointsVectorNotes = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-    List<Integer> playedNotes;
+    static int previousLength = 0;
+    static int[] pointsVectorNotes = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    static List<Integer> playedNotes;
     static Chord lastChord = new Chord(-1, -1, -1);
     private static final int NUM_COL = 7, NUM_ROW = 7, INVERSIONS_TO_CHOOSE = 3;
 
-    public MachineLearning(List<Integer> playedNotes) {
-        this.playedNotes = playedNotes;
-    }
-
-    public void determineChords() {
+    public static void determineChords(List<Integer> playedNotesList) {
+        playedNotes = playedNotesList;
         int key = getKey();
         int[] notesInKey = GenChordProgression.keyMatrix[key];
 
@@ -46,15 +43,11 @@ public class MachineLearning {
                         percentageTransitions[predictedChord] = 0;
                     }
                 }
-
-                System.out.println("Inversion: " + lastChord.getInversion());
-                System.out.println("Chord Played: " + lastChord.getChordNumber());
-                System.out.println("Predicted Next Note: " + predictedNote);
             }
         }
     }
 
-    private int getKey() {
+    private static int getKey() {
         // Determine the key, based on notes played
         for (int i = previousLength; i < playedNotes.size(); i++) {
             pointsVectorNotes[playedNotes.get(i) % 12]++;
@@ -72,7 +65,7 @@ public class MachineLearning {
         return maxInArray(pointsVectorKey);
     }
 
-    private int maxInArray(double[] array) {
+    private static int maxInArray(double[] array) {
         double max = 0;
         int maxIndex = 0;
         List<Integer> maxList = new ArrayList<Integer>();
@@ -99,7 +92,7 @@ public class MachineLearning {
         }
     }
 
-    private int maxInArray(int[] array) {
+    private static int maxInArray(int[] array) {
         int max = 0, maxIndex = 0;
         List<Integer> maxList = new ArrayList<Integer>();
 
@@ -175,7 +168,7 @@ public class MachineLearning {
         }
     }
 
-    private double[][] getTransitionMatrix(List<Integer> playedNotes, int key) {
+    private static double[][] getTransitionMatrix(List<Integer> playedNotes, int key) {
         double[][] transitionArray = new double[NUM_ROW][NUM_COL];
 
         for (int i = 0; i < playedNotes.size() - 1; i++) {
