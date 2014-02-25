@@ -10,6 +10,7 @@ public class Input {
     List<Long> timeDifferentials = new ArrayList<Long>();
     boolean playChord = false;
     long currentTimeStamp = System.currentTimeMillis(), nextTime = System.currentTimeMillis();
+    Timing timing = new Timing();
 
     public Input() {
         for (int i = 0; i < infos.length; i++) {
@@ -52,20 +53,16 @@ public class Input {
     private class MidiInputReceiver implements Receiver {
         public void send(MidiMessage message, long timeStamp) {
             byte[] derivedMessage = message.getMessage();
-            if (((int) derivedMessage[2]) != 0) {
-                if (playChord) {
-                    Output.playChord(MachineLearning.lastChord);
-                    playChord = false;
-                }
+            if (((int) derivedMessage[2]) != 0) { // Only occur on down note, not on note release
                 playedNotes.add((int) derivedMessage[1]); // Append played note to List
-                timeDifferentials.add(Math.abs(System.currentTimeMillis() - currentTimeStamp));
+                Timing.timeDifferentials.add(Math.abs(System.currentTimeMillis() - currentTimeStamp));
                 currentTimeStamp = System.currentTimeMillis();
 
-                long selectedTime = Timing.determineTime(timeDifferentials);
-                if (nextTime < System.currentTimeMillis()) {
+                Range selectedRange = timing.determineTime();
+                if (selectedRange.fitsInRange(Math.abs(nextTime - currentTimeStamp))) {
                     MachineLearning.determineChords(playedNotes);
-                    playChord = true;
-                    nextTime = System.currentTimeMillis() + selectedTime;
+                    Output.playChord(MachineLearning.lastChord);
+                    nextTime = System.currentTimeMillis();
                 }
             }
         }

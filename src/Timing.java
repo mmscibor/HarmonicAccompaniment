@@ -1,33 +1,44 @@
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Timing {
 
-    static final int MEASURE_LENGTH = 2;
+    private static final int SUBSECTIONS = 4;
+    private long minTime = 50, maxTime = 2550;
+    public static ArrayList<Long> timeDifferentials = new ArrayList<Long>();
+    private static ArrayList<Long> boundaries = new ArrayList<Long>();
+    private static ArrayList<Range> ranges = new ArrayList<Range>();
 
-    public static long determineTime(List<Long> timeDifferentials) {
-        long averageTime = 0, maxTime = 0;
-
-        if (timeDifferentials.size() > 1) {
-            timeDifferentials.remove(0);
+    public Timing() {
+        for (int i = 0; i <= SUBSECTIONS; i++) {
+            boundaries.add(i * (maxTime - minTime) / SUBSECTIONS + minTime);
         }
 
-        for (long differential : timeDifferentials) {
-            averageTime += differential;
-            if (differential > maxTime) {
-                maxTime = differential;
+        for (int i = 0; i < SUBSECTIONS; i++) {
+            ranges.add(new Range(boundaries.get(i), boundaries.get(i + 1)));
+        }
+    }
+
+    public Range determineTime() {
+        Collections.sort(timeDifferentials);
+
+        for (Range range : ranges) {
+            for (Long differential : timeDifferentials) {
+                if (range.fitsInRange(differential)) {
+                    range.appendDifferential(differential);
+                }
             }
         }
 
-        averageTime = averageTime / timeDifferentials.size();
+        int binCount = 0;
+        Range selectedRange = new Range(0, 0);
 
-        long selectedTime;
-
-        if (maxTime > averageTime * MEASURE_LENGTH) {
-            selectedTime = maxTime;
-        } else {
-            selectedTime = averageTime * MEASURE_LENGTH;
+        for (Range range : ranges) {
+            if (range.getAmountInRange() > binCount) {
+                selectedRange = range;
+            }
         }
 
-        return selectedTime;
+        return selectedRange;
     }
 }
