@@ -30,6 +30,12 @@ public class Timing {
             }
         }
 
+        for (Range range: ranges){
+            System.out.print(range.getAmountInRange() + "      ");
+        }
+
+        System.out.println();
+
         long binCount = 0;
         Range selectedRange = new Range(0, 0);
 
@@ -38,6 +44,8 @@ public class Timing {
                 selectedRange = range;
             }
         }
+
+        System.out.println("Selected Range: " + ranges.indexOf(selectedRange));
 
         return selectedRange;
     }
