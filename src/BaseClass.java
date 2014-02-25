@@ -23,6 +23,7 @@ public class BaseClass {
         Output.delay(.5);
         Output.playChord(chord4);
 
+
         pauseForInput(input);
     }
 
