@@ -30,7 +30,7 @@ public class Timing {
             }
         }
 
-        int binCount = 0;
+        long binCount = 0;
         Range selectedRange = new Range(0, 0);
 
         for (Range range : ranges) {

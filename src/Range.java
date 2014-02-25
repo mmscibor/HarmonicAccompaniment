@@ -36,8 +36,12 @@ public class Range {
         return false;
     }
 
-    public int getAmountInRange() {
-        return differentials.size();
+    public long getAmountInRange() {
+        long sum = 0;
+        for (Long differential: differentials){
+            sum += differential;
+        }
+        return sum;
     }
 
 }
