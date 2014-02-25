@@ -248,7 +248,6 @@ public class MachineLearning {
                     break;
                 case 2:
                     notesInPredictedChord[2] -= 12;
-                    notesInPredictedChord[1] -= 12;
                     break;
             }
             Arrays.sort(notesInPredictedChord);
