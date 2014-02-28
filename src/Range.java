@@ -38,7 +38,7 @@ public class Range {
 
     public long getAmountInRange() {
         long sum = 0;
-        for (Long differential: differentials){
+        for (Long differential : differentials) {
             sum += differential;
         }
         return sum;
