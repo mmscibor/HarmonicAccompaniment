@@ -7,10 +7,9 @@ public class Input {
     MidiDevice device;
     MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
     List<Integer> playedNotes = new ArrayList<Integer>();
-    List<Long> timeDifferentials = new ArrayList<Long>();
-    boolean playChord = false;
-    long currentTimeStamp = System.currentTimeMillis(), nextTime = System.currentTimeMillis();
+    long currentTimeStamp = System.currentTimeMillis(), averageTime, nextTime = System.currentTimeMillis();
     Timing timing = new Timing();
+    Range selectedRange;
 
     public Input() {
         for (int i = 0; i < infos.length; i++) {
@@ -55,15 +54,30 @@ public class Input {
             byte[] derivedMessage = message.getMessage();
             if (((int) derivedMessage[2]) != 0) { // Only occur on down note, not on note release
                 playedNotes.add((int) derivedMessage[1]); // Append played note to List
-                Timing.timeDifferentials.add(Math.abs(System.currentTimeMillis() - currentTimeStamp));
-                currentTimeStamp = System.currentTimeMillis();
+                timing.timeDifferentials.add(Math.abs(System.currentTimeMillis() - currentTimeStamp));
 
-                Range selectedRange = timing.determineTime();
-                if (selectedRange.fitsInRange(Math.abs(nextTime - currentTimeStamp))) {
+                selectedRange = timing.determineTime();
+                if (System.currentTimeMillis() > nextTime) {
+                    averageTime = selectedRange.getAverageTime();
+                    switch (timing.retrieveRangeIndex(selectedRange)) {
+                        case 0:
+                            averageTime = averageTime * 4;
+                            break;
+                        case 1:
+                            averageTime = averageTime * 2;
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                    }
+
+                    nextTime = System.currentTimeMillis() + averageTime;
+
                     MachineLearning.determineChords(playedNotes);
                     Output.playChord(MachineLearning.lastChord);
-                    nextTime = System.currentTimeMillis();
                 }
+                currentTimeStamp = System.currentTimeMillis();
             }
         }
 

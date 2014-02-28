@@ -20,17 +20,23 @@ public class Timing {
     }
 
     public Range determineTime() {
-        Collections.sort(timeDifferentials);
+        while (timeDifferentials.size() > 50) {
+            timeDifferentials.remove(0);
+        }
+
+        ArrayList<Long> temporarySorted = timeDifferentials;
+        Collections.sort(temporarySorted);
 
         for (Range range : ranges) {
-            for (Long differential : timeDifferentials) {
+            range.clearInRange();
+            for (Long differential : temporarySorted) {
                 if (range.fitsInRange(differential)) {
                     range.appendDifferential(differential);
                 }
             }
         }
 
-        for (Range range: ranges){
+        for (Range range : ranges) {
             System.out.print(range.getAmountInRange() + "      ");
         }
 
@@ -42,11 +48,16 @@ public class Timing {
         for (Range range : ranges) {
             if (range.getAmountInRange() > binCount) {
                 selectedRange = range;
+                binCount = range.getAmountInRange();
             }
         }
 
         System.out.println("Selected Range: " + ranges.indexOf(selectedRange));
 
         return selectedRange;
+    }
+
+    public int retrieveRangeIndex(Range range) {
+        return ranges.indexOf(range);
     }
 }
