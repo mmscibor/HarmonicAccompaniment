@@ -44,11 +44,11 @@ public class Range {
         return sum;
     }
 
-    public long getAverageTime(){
+    public long getAverageTime() {
         return getAmountInRange() / differentials.size();
     }
 
-    public void clearInRange(){
+    public void clearInRange() {
         differentials = new ArrayList<Long>();
     }
 }
