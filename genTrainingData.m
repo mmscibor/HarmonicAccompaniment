@@ -1,4 +1,4 @@
-for row=(1:200)
+for row=(1:10)
 
 keys = 1:12; 
 chords = 1:7; 
@@ -341,9 +341,11 @@ else
 fileID = fopen('trainingData.txt','a');
 end
 for abc=(1:length(melody))
-fprintf(fileID, '% 5.2f %d', melody(abc));
+fprintf(fileID, '%d % 5.2f', melody(abc));
 end
-fprintf(fileID,'\n');
+if (row ~= 10)
+    fprintf(fileID,'\n');
+end
 fclose(fileID);
 
 end
