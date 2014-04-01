@@ -108,7 +108,7 @@ nextChordUsed = zeros(1,3);
 noteList = zeros(numChords*8, 1);
 index = 1;
 
-for ii = 1:numChords
+for ii = 1:(numChords-1)
     notesForChord = datasample(notesToSample, 1);
     chordNumber = chordList(ii, 2);
     chordInversion = chordList(ii, 3);
@@ -130,19 +130,205 @@ for ii = 1:numChords
         nextChordUsed = chordsSecInv(chordNumber, :);
     end
     
-    notesToUse = zeros((max([chordUsed,nextChordUsed]) - min([chordUsed,nextChordUsed]) + 1),1);
+    notesToUse = zeros(1, (max([chordUsed,nextChordUsed]) - min([chordUsed,nextChordUsed]) + 1));
     notesToUse(1) = min([chordUsed,nextChordUsed]);
     for kk=2:length(notesToUse)
         notesToUse(kk) = notesToUse(kk-1)+1;
     end
     
-    for jj=index:index+notesForChord
-        noteList(jj) = 
+    % first note
+    noteList(index) = datasample(chordUsed,1);
+    % rest of notes depending on how many there should be
+    switch notesForChord
+        case 1
+            % no notes to add
+        case 2
+            % second note of two
+            noteList(index+1) = datasample(notesToUse,1);
+        case 4
+            % second note of four
+            noteList(index+1) = datasample([noteList(index)+1, noteList(index)-1, chordUsed],1);
+            %third note of four
+            if ismember(noteList(index+1),notesToUse)
+                if ismember(noteList(index+1),chordUsed)
+                    noteList(index+2) = datasample([noteList(index+1)+1, noteList(index+1)-1, chordUsed],1);
+                else
+                    noteList(index+2) = datasample(chordUsed,1);
+                end
+            else
+                noteList(index+2) = datasample([notesToUse, chordUsed, noteList(index)],1);
+            end
+            % fourth note of four
+            if ismember(noteList(index+2),notesToUse)
+                if ismember(noteList(index+2),chordUsed)
+                    noteList(index+3) = datasample([noteList(index+2)+1, noteList(index+2)-1, notesToUse, chordUsed],1);
+                else
+                    noteList(index+3) = datasample([chordUsed, notesToUse],1);
+                end
+            else
+                noteList(index+3) = datasample(notesToUse,1);
+            end
+        case 8
+            % second note of eight
+            noteList(index+1) = datasample([noteList(index)+1, noteList(index)-1, chordUsed],1);
+            % third note of eight
+            if abs(noteList(index)-noteList(index+1)) == 1
+                note = noteList(index+1) + noteList(index+1) - noteList(index);
+                if ismember(noteList(index+1),notesToUse)
+                    if ismember(noteList(index+1),chordUsed)
+                        noteList(index+2) = datasample([noteList(index+1)+1, noteList(index+1)-1, chordUsed, note],1);
+                    else
+                        noteList(index+2) = datasample([chordUsed, note],1);
+                    end
+                else
+                    noteList(index+2) = datasample([notesToUse, chordUsed, noteList(index), note],1);
+                end
+            elseif ismember(noteList(index+1),notesToUse)
+                if ismember(noteList(index+1),chordUsed)
+                    noteList(index+2) = datasample([noteList(index+1)+1, noteList(index+1)-1, chordUsed],1);
+                else
+                    noteList(index+2) = datasample(chordUsed,1);
+                end
+            else
+                noteList(index+2) = datasample([notesToUse, chordUsed, noteList(index)],1);
+            end
+            % fourth note of eight
+            if (noteList(index)-noteList(index+1) == noteList(index+1)-noteList(index+2))
+                note = noteList(index+2) + noteList(index+2) - noteList(index+1);
+                if ismember(noteList(index+2),notesToUse)
+                    if ismember(noteList(index+2),chordUsed)
+                        noteList(index+3) = datasample([noteList(index+2)+1, noteList(index+2)-1, notesToUse, chordUsed, note],1);
+                    else
+                        noteList(index+3) = datasample([chordUsed, notesToUse, note],1);
+                    end
+                else
+                    noteList(index+3) = datasample([notesToUse, note],1);
+                end
+            else
+                if ismember(noteList(index+2),notesToUse)
+                    if ismember(noteList(index+2),chordUsed)
+                        noteList(index+3) = datasample([noteList(index+2)+1, noteList(index+2)-1, notesToUse, chordUsed],1);
+                    else
+                        noteList(index+3) = datasample([chordUsed, notesToUse],1);
+                    end
+                else
+                    noteList(index+3) = datasample(notesToUse,1);
+                end
+            end
+            % fifth note of eight
+            if (noteList(index+1)-noteList(index+2) == noteList(index+2)-noteList(index+3))
+                note = noteList(index+3) + noteList(index+3) - noteList(index+2);
+                if ismember(noteList(index+3),notesToUse)
+                    if ismember(noteList(index+3),chordUsed)
+                        noteList(index+4) = datasample([noteList(index+3)+1, noteList(index+3)-1, chordUsed, note],1);
+                    else
+                        noteList(index+4) = datasample([chordUsed, note],1);
+                    end
+                else
+                    noteList(index+4) = datasample([notesToUse, chordUsed, noteList(index), note],1);
+                end
+            elseif ismember(noteList(index+3),notesToUse)
+                if ismember(noteList(index+3),chordUsed)
+                    noteList(index+4) = datasample([noteList(index+3)+1, noteList(index+3)-1, chordUsed],1);
+                else
+                    noteList(index+4) = datasample(chordUsed,1);
+                end
+            else
+                noteList(index+4) = datasample([notesToUse, chordUsed, noteList(index)],1);
+            end
+            % sixth
+            if (noteList(index+2)-noteList(index+3) == noteList(index+3)-noteList(index+4))
+                note = noteList(index+4) + noteList(index+4) - noteList(index+3);
+                if ismember(noteList(index+4),notesToUse)
+                    if ismember(noteList(index+4),chordUsed)
+                        noteList(index+5) = datasample([noteList(index+4)+1, noteList(index+4)-1, notesToUse, chordUsed, note],1);
+                    else
+                        noteList(index+5) = datasample([chordUsed, notesToUse, note],1);
+                    end
+                else
+                    noteList(index+5) = datasample([notesToUse, note],1);
+                end
+            else
+                if ismember(noteList(index+4),notesToUse)
+                    if ismember(noteList(index+4),chordUsed)
+                        noteList(index+5) = datasample([noteList(index+4)+1, noteList(index+4)-1, notesToUse, chordUsed],1);
+                    else
+                        noteList(index+5) = datasample([chordUsed, notesToUse],1);
+                    end
+                else
+                    noteList(index+5) = datasample(notesToUse,1);
+                end
+            end
+            % seventh note of eight
+            if (noteList(index+3)-noteList(index+4) == noteList(index+4)-noteList(index+5))
+                note = noteList(index+5) + noteList(index+5) - noteList(index+4);
+                if ismember(noteList(index+5),notesToUse)
+                    if ismember(noteList(index+5),chordUsed)
+                        noteList(index+6) = datasample([noteList(index+5)+1, noteList(index+5)-1, notesToUse, chordUsed, note],1);
+                    else
+                        noteList(index+6) = datasample([chordUsed, notesToUse, note],1);
+                    end
+                else
+                    noteList(index+6) = datasample([notesToUse, note],1);
+                end
+            else
+                if ismember(noteList(index+5),notesToUse)
+                    if ismember(noteList(index+5),chordUsed)
+                        noteList(index+6) = datasample([noteList(index+5)+1, noteList(index+5)-1, notesToUse, chordUsed],1);
+                    else
+                        noteList(index+6) = datasample([chordUsed, notesToUse],1);
+                    end
+                else
+                    noteList(index+6) = datasample(notesToUse,1);
+                end
+            end
+            % eighth note of eight
+            if (noteList(index+6)==noteList(index))
+                if (noteList(index+4)-noteList(index+5) == noteList(index+5)-noteList(index+6))
+                    note = noteList(index+6) + noteList(index+6) - noteList(index+5);
+                    if ismember(noteList(index+6),notesToUse)
+                        if ismember(noteList(index+6),chordUsed)
+                            noteList(index+7) = datasample([noteList(index+6)+1, noteList(index+6)-1, chordUsed, note],1);
+                        else
+                            noteList(index+7) = datasample([chordUsed, note],1);
+                        end
+                    else
+                        noteList(index+7) = datasample([notesToUse, chordUsed, noteList(index), note],1);
+                    end
+                elseif ismember(noteList(index+6),notesToUse)
+                    if ismember(noteList(index+6),chordUsed)
+                        noteList(index+7) = datasample([noteList(index+6)+1, noteList(index+6)-1, chordUsed],1);
+                    else
+                        noteList(index+7) = datasample(chordUsed,1);
+                    end
+                else
+                    noteList(index+7) = datasample([notesToUse, chordUsed, noteList(index)],1);
+                end
+            elseif (noteList(index+4)-noteList(index+5) == noteList(index+5)-noteList(index+6))
+                note = noteList(index+6) + noteList(index+6) - noteList(index+5);
+                if ismember(noteList(index+6),notesToUse)
+                    if ismember(noteList(index+6),chordUsed)
+                        noteList(index+7) = datasample([noteList(index+6)+1, noteList(index+6)-1, chordUsed, note, noteList(index)],1);
+                    else
+                        noteList(index+7) = datasample([chordUsed, note, noteList(index)],1);
+                    end
+                else
+                    noteList(index+7) = datasample([notesToUse, chordUsed, noteList(index), note, noteList(index)],1);
+                end
+            elseif ismember(noteList(index+6),notesToUse)
+                if ismember(noteList(index+6),chordUsed)
+                    noteList(index+7) = datasample([noteList(index+6)+1, noteList(index+6)-1, chordUsed, noteList(index)],1);
+                else
+                    noteList(index+7) = datasample([chordUsed, noteList(index)],1);
+                end
+            else
+                noteList(index+7) = datasample([notesToUse, chordUsed, noteList(index), noteList(index)],1);
+            end
     end
-    
     index = index + notesForChord;
-    
-    if ii == numChords - 1
-        break;
-    end
 end
+% either need to discard last chord or create melody for last chord? or not
+melody = noteList(1:index);
+
+%need some way to mark which chord has how many notes, perhaps 4th column
+%in chord vector within chordList?
