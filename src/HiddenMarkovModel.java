@@ -1,7 +1,14 @@
-import be.ac.ulg.montefiore.run.jahmm.*;
+import be.ac.ulg.montefiore.run.jahmm.Hmm;
+import be.ac.ulg.montefiore.run.jahmm.ObservationDiscrete;
+import be.ac.ulg.montefiore.run.jahmm.OpdfDiscrete;
+import be.ac.ulg.montefiore.run.jahmm.OpdfDiscreteFactory;
 import be.ac.ulg.montefiore.run.jahmm.learn.BaumWelchLearner;
 import be.ac.ulg.montefiore.run.jahmm.toolbox.KullbackLeiblerDistanceCalculator;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,11 +69,62 @@ public class HiddenMarkovModel {
         return hmm;
     }
 
-    static <O extends Observation> List<List<O>> generateSequences() {
+    static List<List<ObservationDiscrete<States>>> generateSequences() {
+        List<List<ObservationDiscrete<States>>> sequences = new ArrayList<List<ObservationDiscrete<States>>>();
 
-        List<List<O>> sequences = new ArrayList<List<O>>();
-        for (int i = 0; i < 200; i++) ;
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("trainingData.txt"));
+            String currentLine;
+            while ((currentLine = bufferedReader.readLine()) != null) {
+                String data[] = currentLine.split(" ");
+                ArrayList<ObservationDiscrete<States>> observations = new ArrayList<ObservationDiscrete<States>>();
+                for (int i = 0; i < data.length; i++) {
+                    observations.add(new ObservationDiscrete<States>(intToEnum(Integer.parseInt(data[i]) % 7)));
+                }
+                sequences.add(observations);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return sequences;
+    }
+
+    static int enumToInt(States state) {
+        if (state.equals(States.ONE)) {
+            return 1;
+        } else if (state.equals(States.TWO)) {
+            return 2;
+        } else if (state.equals(States.THREE)) {
+            return 3;
+        } else if (state.equals(States.FOUR)) {
+            return 4;
+        } else if (state.equals(States.FIVE)) {
+            return 5;
+        } else if (state.equals(States.SIX)) {
+            return 6;
+        }
+        return 7;
+    }
+
+    static States intToEnum(int value) {
+        switch (value) {
+            case 1:
+                return States.ONE;
+            case 2:
+                return States.TWO;
+            case 3:
+                return States.THREE;
+            case 4:
+                return States.FOUR;
+            case 5:
+                return States.FIVE;
+            case 6:
+                return States.SIX;
+            default:
+                return States.SEVEN;
+        }
     }
 }
