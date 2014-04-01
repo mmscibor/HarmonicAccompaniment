@@ -1,3 +1,5 @@
+for row=(1:200)
+
 keys = 1:12; 
 chords = 1:7; 
 inversions = 0:2;
@@ -329,6 +331,19 @@ for ii = 1:(numChords-1)
 end
 % either need to discard last chord or create melody for last chord? or not
 melody = noteList(1:index);
+melody = melody';
 
 %need some way to mark which chord has how many notes, perhaps 4th column
 %in chord vector within chordList?
+if (row == 1)
+fileID = fopen('trainingData.txt','w+');
+else
+fileID = fopen('trainingData.txt','a');
+end
+for abc=(1:length(melody))
+fprintf(fileID, '% 5.2f %d', melody(abc));
+end
+fprintf(fileID,'\n');
+fclose(fileID);
+
+end
