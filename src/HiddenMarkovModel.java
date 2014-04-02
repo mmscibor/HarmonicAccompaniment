@@ -23,9 +23,9 @@ public class HiddenMarkovModel {
 
         // Incrementally improve the solution
         for (int i = 0; i < 10; i++) {
-//            Hmm<ObservationInteger> newHmm = baumWelchLearner.iterate(learntHmm, sequences);
-//            System.out.println("Distance at iteration " + i + ": " + distanceCalculator.distance(learntHmm, newHmm));
-            learntHmm = learner.iterate(learntHmm, sequences);
+            Hmm<ObservationInteger> newHmm = learner.iterate(learntHmm, sequences);
+            System.out.println("Distance at iteration " + i + ": " + distanceCalculator.distance(learntHmm, newHmm));
+            learntHmm = newHmm;
         }
 
         System.out.println("Resulting HMM:\n" + learntHmm);
@@ -48,7 +48,7 @@ public class HiddenMarkovModel {
             hmm.setPi(i, (1 / 7.0));
             hmm.setOpdf(i, new OpdfInteger(initialProbabilities));
             for (int j = 0; j < NUM_STATES; j++) {
-                hmm.setAij(i, j, (1 / 7.0));
+                hmm.setAij(i, j, GenChordProgression.transMatrix[i][j]);
             }
         }
 
