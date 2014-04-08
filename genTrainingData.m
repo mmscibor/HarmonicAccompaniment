@@ -1,4 +1,4 @@
-for row=(1:10)
+for row=(1:200)
 
 keys = 1:12; 
 chords = 1:7; 
@@ -20,7 +20,7 @@ transitionMatrix = [0, .069, 0, .289, .495, .138, .01;
 .140, .076, .076, .381, .317, 0, .01;
 .333, .094, 0, 0, .104, .469, 0];
 
-numChords = 1500; 
+numChords = 50; 
 chordList = zeros(numChords, 3); % COL1: Key, COL2: Chord #, COL3: Inversion
 
 chordList(:,1) = 1; % Key is C, loop this for all keys
@@ -111,7 +111,7 @@ noteList = zeros(numChords*8, 1);
 index = 1;
 
 for ii = 1:(numChords-1)
-    notesForChord = 4;%datasample(notesToSample, 1);
+    notesForChord = 4; %datasample(notesToSample, 1);
     chordNumber = chordList(ii, 2);
     chordInversion = chordList(ii, 3);
     if chordInversion == 0

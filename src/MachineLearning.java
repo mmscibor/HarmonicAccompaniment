@@ -61,7 +61,6 @@ public class MachineLearning {
                 pointsVectorKey[key] += pointsVectorNotes[GenChordProgression.keyMatrix[key][note]];
             }
         }
-
         return maxInArray(pointsVectorKey);
     }
 

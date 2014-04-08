@@ -66,11 +66,6 @@ public class HiddenMarkovModel {
                 List<ObservationInteger> observations = new ArrayList<ObservationInteger>();
                 for (int i = 0; i < 200 /*data.length*/; i++) {
                     Integer dataValue = Integer.parseInt(data[i]);
-                    if (dataValue < 0) {
-                        dataValue += 7;
-                    } else if (dataValue > 6) {
-                        dataValue -= 7;
-                    }
                     observations.add(new ObservationInteger(dataValue));
                 }
                 sequences.add(observations);
