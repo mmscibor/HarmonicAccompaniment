@@ -15,15 +15,15 @@ public class HiddenMarkovModel {
         sequences = generateSequences();
 
         // Use this to iterate and improve the HMM
-        BaumWelchLearner baumWelchLearner = new BaumWelchLearner();
+        BaumWelchLearner learner = new BaumWelchLearner();
         Hmm<ObservationInteger> learntHmm = buildInitHmm();
 
         // This object measures the distance between two HMMs
         KullbackLeiblerDistanceCalculator distanceCalculator = new KullbackLeiblerDistanceCalculator();
 
         // Incrementally improve the solution
-        for (int i = 0; i < 15; i++) {
-            Hmm<ObservationInteger> newHmm = baumWelchLearner.iterate(learntHmm, sequences);
+        for (int i = 0; i < 10; i++) {
+            Hmm<ObservationInteger> newHmm = learner.iterate(learntHmm, sequences);
             System.out.println("Distance at iteration " + i + ": " + distanceCalculator.distance(learntHmm, newHmm));
             learntHmm = newHmm;
         }
@@ -47,12 +47,8 @@ public class HiddenMarkovModel {
         for (int i = 0; i < NUM_STATES; i++) {
             hmm.setPi(i, (1 / 7.0));
             hmm.setOpdf(i, new OpdfInteger(initialProbabilities));
-        }
-
-        // Set initial state transition probabilities (all 1 / 7)
-        for (int i = 0; i < NUM_STATES; i++) {
             for (int j = 0; j < NUM_STATES; j++) {
-                hmm.setAij(i, j, (1 / 7.0));
+                hmm.setAij(i, j, GenChordProgression.transMatrix[i][j]);
             }
         }
 
@@ -68,9 +64,14 @@ public class HiddenMarkovModel {
             while ((currentLine = bufferedReader.readLine()) != null) {
                 String data[] = currentLine.split(" ");
                 List<ObservationInteger> observations = new ArrayList<ObservationInteger>();
-                for (int i = 0; i < data.length; i++) {
-//                    intToEnum(Integer.parseInt(data[i]) % 7);
-                    observations.add(new ObservationInteger(1));
+                for (int i = 0; i < 200 /*data.length*/; i++) {
+                    Integer dataValue = Integer.parseInt(data[i]);
+                    if (dataValue < 0) {
+                        dataValue += 7;
+                    } else if (dataValue > 6) {
+                        dataValue -= 7;
+                    }
+                    observations.add(new ObservationInteger(dataValue));
                 }
                 sequences.add(observations);
             }
@@ -82,40 +83,4 @@ public class HiddenMarkovModel {
 
         return sequences;
     }
-
-//    static int enumToInt(States state) {
-//        if (state.equals(States.ONE)) {
-//            return 1;
-//        } else if (state.equals(States.TWO)) {
-//            return 2;
-//        } else if (state.equals(States.THREE)) {
-//            return 3;
-//        } else if (state.equals(States.FOUR)) {
-//            return 4;
-//        } else if (state.equals(States.FIVE)) {
-//            return 5;
-//        } else if (state.equals(States.SIX)) {
-//            return 6;
-//        }
-//        return 7;
-//    }
-//
-//    static States intToEnum(int value) {
-//        switch (value) {
-//            case 1:
-//                return States.ONE;
-//            case 2:
-//                return States.TWO;
-//            case 3:
-//                return States.THREE;
-//            case 4:
-//                return States.FOUR;
-//            case 5:
-//                return States.FIVE;
-//            case 6:
-//                return States.SIX;
-//            default:
-//                return States.SEVEN;
-//        }
-//    }
 }
