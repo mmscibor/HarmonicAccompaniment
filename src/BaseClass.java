@@ -1,8 +1,15 @@
+import be.ac.ulg.montefiore.run.jahmm.Hmm;
+import be.ac.ulg.montefiore.run.jahmm.ObservationInteger;
+
 import java.io.IOException;
 
 public class BaseClass {
 
     public static void main(String[] args) throws IOException {
+        // Create a learnt HMM from the provided training data.
+        HiddenMarkovModel hiddenMarkovModel = new HiddenMarkovModel();
+        Hmm<ObservationInteger> learntHmm = hiddenMarkovModel.getHmm();
+
         Input input = new Input();
         pauseForInput(input);
     }

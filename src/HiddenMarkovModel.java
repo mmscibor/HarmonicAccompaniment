@@ -9,14 +9,16 @@ import java.util.List;
 public class HiddenMarkovModel {
     /* Possible packet reception status */
 
-    static public void main(String[] args) throws java.io.IOException {
+    private static Hmm<ObservationInteger> learntHmm;
+
+    public HiddenMarkovModel() throws java.io.IOException {
         // Observed sequences were generated in MATLAB
         List<List<ObservationInteger>> sequences;
         sequences = generateSequences();
 
         // Use this to iterate and improve the HMM
         BaumWelchLearner learner = new BaumWelchLearner();
-        Hmm<ObservationInteger> learntHmm = buildInitHmm();
+        learntHmm = buildInitHmm();
 
         // This object measures the distance between two HMMs
         KullbackLeiblerDistanceCalculator distanceCalculator = new KullbackLeiblerDistanceCalculator();
@@ -77,5 +79,9 @@ public class HiddenMarkovModel {
         }
 
         return sequences;
+    }
+
+    public Hmm<ObservationInteger> getHmm() {
+        return learntHmm;
     }
 }
