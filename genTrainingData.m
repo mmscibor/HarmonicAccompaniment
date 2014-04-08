@@ -111,7 +111,7 @@ noteList = zeros(numChords*8, 1);
 index = 1;
 
 for ii = 1:(numChords-1)
-    notesForChord = datasample(notesToSample, 1);
+    notesForChord = 4;%datasample(notesToSample, 1);
     chordNumber = chordList(ii, 2);
     chordInversion = chordList(ii, 3);
     if chordInversion == 0
@@ -150,26 +150,33 @@ for ii = 1:(numChords-1)
         case 4
             % second note of four
             noteList(index+1) = datasample([noteList(index)+1, noteList(index)-1, chordUsed],1);
-            %third note of four
-            if ismember(noteList(index+1),notesToUse)
-                if ismember(noteList(index+1),chordUsed)
-                    noteList(index+2) = datasample([noteList(index+1)+1, noteList(index+1)-1, chordUsed],1);
-                else
-                    noteList(index+2) = datasample(chordUsed,1);
-                end
+            %third simplified
+            if ismember(noteList(index+1),chordUsed)
+                noteList(index+2) = datasample([noteList(index+1)+1, noteList(index+1)-1, chordUsed],1);
             else
-                noteList(index+2) = datasample([notesToUse, chordUsed, noteList(index)],1);
+                noteList(index+2) = datasample(chordUsed,1);
             end
-            % fourth note of four
-            if ismember(noteList(index+2),notesToUse)
-                if ismember(noteList(index+2),chordUsed)
-                    noteList(index+3) = datasample([noteList(index+2)+1, noteList(index+2)-1, notesToUse, chordUsed],1);
-                else
-                    noteList(index+3) = datasample([chordUsed, notesToUse],1);
-                end
-            else
-                noteList(index+3) = datasample(notesToUse,1);
-            end
+            noteList(index+3) = datasample([chordUsed, notesToUse],1);
+%             %third note of four
+%             if ismember(noteList(index+1),notesToUse)
+%                 if ismember(noteList(index+1),chordUsed)
+%                     noteList(index+2) = datasample([noteList(index+1)+1, noteList(index+1)-1, chordUsed],1);
+%                 else
+%                     noteList(index+2) = datasample(chordUsed,1);
+%                 end
+%             else
+%                 noteList(index+2) = datasample([notesToUse, chordUsed, noteList(index)],1);
+%             end
+%             % fourth note of four
+%             if ismember(noteList(index+2),notesToUse)
+%                 if ismember(noteList(index+2),chordUsed)
+%                     noteList(index+3) = datasample([noteList(index+2)+1, noteList(index+2)-1, notesToUse, chordUsed],1);
+%                 else
+%                     noteList(index+3) = datasample([chordUsed, notesToUse],1);
+%                 end
+%             else
+%                 noteList(index+3) = datasample(notesToUse,1);
+%             end
         case 8
             % second note of eight
             noteList(index+1) = datasample([noteList(index)+1, noteList(index)-1, chordUsed],1);
