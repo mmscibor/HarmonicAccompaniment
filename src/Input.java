@@ -1,3 +1,6 @@
+import be.ac.ulg.montefiore.run.jahmm.Hmm;
+import be.ac.ulg.montefiore.run.jahmm.ObservationInteger;
+
 import javax.sound.midi.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -5,13 +8,16 @@ import java.util.List;
 public class Input {
 
     MidiDevice device;
+    Hmm<ObservationInteger> learntHmm;
     MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
     List<Integer> playedNotes = new ArrayList<Integer>();
     long currentTimeStamp = System.currentTimeMillis(), averageTime, nextTime = System.currentTimeMillis();
     Timing timing = new Timing();
     Range selectedRange;
 
-    public Input() {
+    public Input(Hmm<ObservationInteger> learntHmm) {
+        this.learntHmm = learntHmm;
+
         for (int i = 0; i < infos.length; i++) {
             try {
                 device = MidiSystem.getMidiDevice(infos[i]);
@@ -74,8 +80,9 @@ public class Input {
 
                     nextTime = System.currentTimeMillis() + averageTime;
 
-                    MachineLearning.determineChords(playedNotes);
+                    MachineLearning.determineChords(playedNotes, learntHmm);
                     Output.playChord(MachineLearning.lastChord);
+                    System.out.println("Chord played: " + MachineLearning.lastChord.getChordNumber());
                 }
                 currentTimeStamp = System.currentTimeMillis();
             }

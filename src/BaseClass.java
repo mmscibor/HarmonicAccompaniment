@@ -10,7 +10,7 @@ public class BaseClass {
         HiddenMarkovModel hiddenMarkovModel = new HiddenMarkovModel();
         Hmm<ObservationInteger> learntHmm = hiddenMarkovModel.getHmm();
 
-        Input input = new Input();
+        Input input = new Input(learntHmm);
         pauseForInput(input);
     }
 

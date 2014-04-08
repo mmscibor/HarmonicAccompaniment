@@ -1,3 +1,6 @@
+import be.ac.ulg.montefiore.run.jahmm.Hmm;
+import be.ac.ulg.montefiore.run.jahmm.ObservationInteger;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,40 +13,53 @@ public class MachineLearning {
     static List<Integer> playedNotes;
     static Chord lastChord = new Chord(-1, -1, -1);
     private static final int NUM_COL = 7, NUM_ROW = 7, INVERSIONS_TO_CHOOSE = 3;
+    static Hmm<ObservationInteger> learntHmm;
 
-    public static void determineChords(List<Integer> playedNotesList) {
+    public static void determineChords(List<Integer> playedNotesList, Hmm<ObservationInteger> hmm) {
+        learntHmm = hmm;
         playedNotes = playedNotesList;
         int key = getKey();
         int[] notesInKey = GenChordProgression.keyMatrix[key];
 
-        int mostRecentNote = playedNotes.get(playedNotes.size() - 1) % 12;
-        int chordNumber = findInArray(notesInKey, mostRecentNote);
+        int currentNote = playedNotes.get(playedNotes.size() - 1) % 12;
+        int generalScaleCurrent = findInArray(notesInKey, currentNote);
 
         if (lastChord.getChordNumber() == -1) {
-            if (chordNumber >= 0) {
-                lastChord = new Chord(chordNumber, 0, key);
+            if (generalScaleCurrent >= 0) {
+                lastChord = new Chord(generalScaleCurrent, 0, key);
             } else {
                 return;
             }
         } else {
-            if (chordNumber >= 0) {
-                double[] noteTransMatrix = getTransitionMatrix(playedNotes, key)[chordNumber];
-                int predictedNote = maxInArray(noteTransMatrix);
+            int previousChordNumber = lastChord.getChordNumber();
 
-                int previousChordNumber = lastChord.getChordNumber();
-                double[] percentageTransitions = GenChordProgression.transMatrix[previousChordNumber];
+            Random random = new Random();
 
-                for (int i = 0; i < percentageTransitions.length; i++) {
-                    int predictedChord = maxInArray(percentageTransitions);
-                    int[] notesInChord = GenChordProgression.noteInChord(key, predictedChord);
-                    if (findInArray(notesInChord, predictedNote) >= 0) {
-                        int inversion = getInversion(predictedChord, key);
-                        lastChord.setChord(predictedChord, inversion, key);
-                    } else {
-                        percentageTransitions[predictedChord] = 0;
-                    }
+            ArrayList<Integer> containThisNote = chordsContain(generalScaleCurrent);
+            ArrayList<Double> percentageTransitions = new ArrayList<Double>();
+
+            for (Integer containing: containThisNote) {
+                System.out.println("i = " + previousChordNumber + "\t\tj = " + containing);
+                percentageTransitions.add(random.nextDouble() * learntHmm.getAij(previousChordNumber, containing));
+            }
+
+            double max = 0;
+            int predictedChord = 0;
+
+            for (int i = 0; i < percentageTransitions.size(); i++) {
+                System.out.println("Percentage: " + percentageTransitions.get(i));
+                if (percentageTransitions.get(i) > max) {
+                    max = percentageTransitions.get(i);
+                    predictedChord = i;
                 }
             }
+
+            predictedChord = containThisNote.get(predictedChord);
+
+            System.out.println("Selected chord: " + predictedChord);
+
+            int inversion = getInversion(predictedChord, key);
+            lastChord.setChord(predictedChord, inversion, key);
         }
     }
 
@@ -264,5 +280,18 @@ public class MachineLearning {
         }
 
         return selectedInversion;
+    }
+
+    static ArrayList<Integer> chordsContain(int playedNote) {
+        int thisNote = playedNote + 1;
+        ArrayList<Integer> containing = new ArrayList<Integer>();
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (GenChordProgression.chordValues[i][j] == thisNote) {
+                    containing.add(i);
+                }
+            }
+        }
+        return containing;
     }
 }

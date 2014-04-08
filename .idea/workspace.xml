@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="1d492488-4267-4b99-be1b-d8eabf944aa9" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/BaseClass.java" afterPath="$PROJECT_DIR$/src/BaseClass.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/HiddenMarkovModel.java" afterPath="$PROJECT_DIR$/src/HiddenMarkovModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GenChordProgression.java" afterPath="$PROJECT_DIR$/src/GenChordProgression.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Input.java" afterPath="$PROJECT_DIR$/src/Input.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MachineLearning.java" afterPath="$PROJECT_DIR$/src/MachineLearning.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Timing.java" afterPath="$PROJECT_DIR$/src/Timing.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SLab.iws" />
@@ -69,24 +72,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="HiddenMarkovModel.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/HiddenMarkovModel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="80" column="25" selection-start="3249" selection-end="3249" vertical-scroll-proportion="0.0" vertical-offset="660" max-vertical-offset="1290">
-              <folding>
-                <element signature="e#2362#2388#0" expanded="true" />
-                <element signature="e#2746#2766#0" expanded="true" />
-                <element signature="e#3301#3302#0" expanded="true" />
-                <element signature="e#3333#3334#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BaseClass.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="BaseClass.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BaseClass.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="31" selection-start="316" selection-end="316" vertical-scroll-proportion="0.34615386" vertical-offset="0" max-vertical-offset="510">
+            <state line="12" column="41" selection-start="470" selection-end="470" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -94,19 +83,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MachineLearning.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/MachineLearning.java">
+      <file leaf-file-name="Input.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Input.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="62" column="9" selection-start="2587" selection-end="2587" vertical-scroll-proportion="0.0" vertical-offset="465" max-vertical-offset="4065">
+            <state line="84" column="102" selection-start="3391" selection-end="3391" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1425">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Input.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Input.java">
+      <file leaf-file-name="MachineLearning.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/MachineLearning.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="67" column="34" selection-start="2704" selection-end="2704" vertical-scroll-proportion="0.0" vertical-offset="735" max-vertical-offset="1365">
+            <state line="56" column="65" selection-start="2225" selection-end="2225" vertical-scroll-proportion="0.5307692" vertical-offset="405" max-vertical-offset="4455">
+              <folding>
+                <element signature="e#1464#1472#0" expanded="true" />
+                <element signature="e#9986#9995#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Timing.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Timing.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="36" column="9" selection-start="1217" selection-end="1217" vertical-scroll-proportion="0.0" vertical-offset="250" max-vertical-offset="900">
               <folding />
             </state>
           </provider>
@@ -115,7 +116,16 @@
       <file leaf-file-name="GenChordProgression.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GenChordProgression.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="49" selection-start="915" selection-end="915" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="570">
+            <state line="26" column="22" selection-start="979" selection-end="979" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="690">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Range.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Range.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="29" column="5" selection-start="724" selection-end="730" vertical-scroll-proportion="0.0" vertical-offset="145" max-vertical-offset="795">
               <folding />
             </state>
           </provider>
@@ -135,23 +145,23 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/src/Output.java" />
-        <option value="$PROJECT_DIR$/src/GenChordProgression.java" />
         <option value="$PROJECT_DIR$/src/Chord.java" />
-        <option value="$PROJECT_DIR$/src/Timing.java" />
-        <option value="$PROJECT_DIR$/src/Input.java" />
         <option value="$PROJECT_DIR$/src/Range.java" />
         <option value="$PROJECT_DIR$/trainingData.txt" />
-        <option value="$PROJECT_DIR$/src/MachineLearning.java" />
         <option value="$PROJECT_DIR$/src/HiddenMarkovModel.java" />
         <option value="$PROJECT_DIR$/src/BaseClass.java" />
+        <option value="$PROJECT_DIR$/src/GenChordProgression.java" />
+        <option value="$PROJECT_DIR$/src/Input.java" />
+        <option value="$PROJECT_DIR$/src/Timing.java" />
+        <option value="$PROJECT_DIR$/src/MachineLearning.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
-    <option name="y" value="-4" />
+    <option name="y" value="-24" />
     <option name="width" value="1382" />
-    <option name="height" value="780" />
+    <option name="height" value="800" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -321,6 +331,19 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -346,19 +369,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -605,19 +615,22 @@
       <created>1396991882687</created>
       <updated>1396991882687</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Training data refined">
+      <created>1396992784305</created>
+      <updated>1396992784305</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-4" width="1382" height="780" extended-state="6" />
-    <editor active="false" />
+    <frame x="-8" y="-24" width="1382" height="800" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39541548" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295129" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -630,11 +643,12 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2439577" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3652968" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36484492" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39971346" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39971346" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -653,13 +667,13 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329582" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3762058" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -735,7 +749,10 @@
     <entry file="file://$PROJECT_DIR$/src/MachineLearning.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="54" column="29" selection-start="1746" selection-end="1746" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2025">
-          <folding />
+          <folding>
+            <element signature="e#1464#1472#0" expanded="true" />
+            <element signature="e#9986#9995#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -765,7 +782,10 @@
     <entry file="file://$PROJECT_DIR$/src/MachineLearning.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="4" column="0" selection-start="82" selection-end="82" vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="195">
-          <folding />
+          <folding>
+            <element signature="e#1464#1472#0" expanded="true" />
+            <element signature="e#9986#9995#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -788,7 +808,10 @@
     <entry file="file://$PROJECT_DIR$/src/MachineLearning.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="195">
-          <folding />
+          <folding>
+            <element signature="e#1464#1472#0" expanded="true" />
+            <element signature="e#9986#9995#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -811,7 +834,10 @@
     <entry file="file://$PROJECT_DIR$/src/MachineLearning.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="195">
-          <folding />
+          <folding>
+            <element signature="e#1464#1472#0" expanded="true" />
+            <element signature="e#9986#9995#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -839,7 +865,10 @@
     <entry file="file://$PROJECT_DIR$/src/MachineLearning.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2" column="0" selection-start="32" selection-end="32" vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="150">
-          <folding />
+          <folding>
+            <element signature="e#1464#1472#0" expanded="true" />
+            <element signature="e#9986#9995#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -972,37 +1001,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Output.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="62" selection-start="113" selection-end="113" vertical-scroll-proportion="0.07692308" vertical-offset="10" max-vertical-offset="1800">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/local/java/jdk1.7.0_51/src.zip!/javax/sound/midi/Receiver.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="52" column="16" selection-start="1110" selection-end="1110" vertical-scroll-proportion="0.37406856" vertical-offset="184" max-vertical-offset="855" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Chord.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="0" selection-start="820" selection-end="820" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="570">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Range.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="22" selection-start="556" selection-end="556" vertical-scroll-proportion="0.0" vertical-offset="124" max-vertical-offset="795">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Timing.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="29" selection-start="1363" selection-end="1363" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1035">
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="jar://$PROJECT_DIR$/hmm.jar!/be/ac/ulg/montefiore/run/jahmm/Hmm.class">
@@ -1017,56 +1018,78 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/trainingData.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1575">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1575" />
+      </provider>
+    </entry>
+    <entry file="jar:///usr/local/java/jdk1.7.0_51/src.zip!/java/lang/Class.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1664" column="0" selection-start="70110" selection-end="70110" vertical-scroll-proportion="0.33333334" vertical-offset="23780" max-vertical-offset="47055" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/HiddenMarkovModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="80" column="25" selection-start="3249" selection-end="3249" vertical-scroll-proportion="0.0" vertical-offset="660" max-vertical-offset="1290">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/GenChordProgression.java">
+    <entry file="file://$PROJECT_DIR$/src/BaseClass.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="49" selection-start="915" selection-end="915" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="570">
+        <state line="12" column="41" selection-start="470" selection-end="470" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Chord.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="15" selection-start="702" selection-end="702" vertical-scroll-proportion="0.6170886" vertical-offset="0" max-vertical-offset="632">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Input.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="34" selection-start="2704" selection-end="2704" vertical-scroll-proportion="0.0" vertical-offset="975" max-vertical-offset="1365">
+        <state line="84" column="102" selection-start="3391" selection-end="3391" vertical-scroll-proportion="0.0" vertical-offset="1007" max-vertical-offset="1425">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Output.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="62" selection-start="113" selection-end="113" vertical-scroll-proportion="0.0" vertical-offset="1150" max-vertical-offset="1800">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Range.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="5" selection-start="724" selection-end="730" vertical-scroll-proportion="0.0" vertical-offset="145" max-vertical-offset="795">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Timing.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="9" selection-start="1217" selection-end="1217" vertical-scroll-proportion="0.0" vertical-offset="250" max-vertical-offset="900">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GenChordProgression.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="22" selection-start="979" selection-end="979" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="690">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MachineLearning.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="9" selection-start="2587" selection-end="2587" vertical-scroll-proportion="0.0" vertical-offset="465" max-vertical-offset="4065">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/local/java/jdk1.7.0_51/src.zip!/java/lang/Class.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1664" column="0" selection-start="70110" selection-end="70110" vertical-scroll-proportion="0.33333334" vertical-offset="23780" max-vertical-offset="47055">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/HiddenMarkovModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="80" column="25" selection-start="3249" selection-end="3249" vertical-scroll-proportion="0.0" vertical-offset="660" max-vertical-offset="1290">
+        <state line="56" column="65" selection-start="2225" selection-end="2225" vertical-scroll-proportion="0.5307692" vertical-offset="405" max-vertical-offset="4455">
           <folding>
-            <element signature="e#2362#2388#0" expanded="true" />
-            <element signature="e#2746#2766#0" expanded="true" />
-            <element signature="e#3301#3302#0" expanded="true" />
-            <element signature="e#3333#3334#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/BaseClass.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="31" selection-start="316" selection-end="316" vertical-scroll-proportion="0.34615386" vertical-offset="0" max-vertical-offset="510">
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#1464#1472#0" expanded="true" />
+            <element signature="e#9986#9995#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -21,6 +21,14 @@ public class GenChordProgression {
             {10, 0, 2, 3, 5, 7, 9},
             {11, 1, 3, 4, 6, 8, 10}};
 
+    static int[][] chordValues = {{1, 3, 5},
+            {2, 4, 6},
+            {3, 5, 7},
+            {1, 4, 6},
+            {2, 5, 7},
+            {1, 3, 6},
+            {2, 4, 7}};
+
     public static int[] noteInChord(int key, int chordNumber) {
         int[] keyArray = keyMatrix[key];
         int[] noteNumbers = new int[3];
