@@ -45,7 +45,10 @@ public class Range {
     }
 
     public long getAverageTime() {
-        return getAmountInRange() / differentials.size();
+        if (differentials.size() > 0)
+            return getAmountInRange() / differentials.size();
+        else
+            return getAmountInRange();
     }
 
     public void clearInRange() {
