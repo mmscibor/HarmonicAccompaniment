@@ -23,42 +23,42 @@ public class Output {
     public static void playChord(Chord chord) {
         switch (chord.getChordNumber()) {
             case 0:
-                playMajorChord(48 + chord.getKey() - 1, chord.getInversion());
+                playMajorChord(48 + chord.getKey() - 1, 0);//chord.getInversion());
                 break;
             case 1:
-                playMinorChord(48 + chord.getKey() + 1, chord.getInversion());
+                playMinorChord(48 + chord.getKey() + 1, 0);//chord.getInversion());
                 break;
             case 2:
-                playMinorChord(48 + chord.getKey() + 3, chord.getInversion());
+                playMinorChord(48 + chord.getKey() + 3, 0);//chord.getInversion());
                 break;
             case 3:
-                playMajorChord(48 + chord.getKey() + 4, chord.getInversion());
+                playMajorChord(48 + chord.getKey() + 4, 1);//chord.getInversion());
                 break;
             case 4:
-                playMajorChord(48 + chord.getKey() + 6, chord.getInversion());
+                playMajorChord(48 + chord.getKey() + 6, 1);//chord.getInversion());
                 break;
             case 5:
-                playMinorChord(48 + chord.getKey() + 8, chord.getInversion());
+                playMinorChord(48 + chord.getKey() + 8, 2);//chord.getInversion());
                 break;
             case 6:
                 int dimBaseNote = 48 + chord.getKey() + 10;
-                switch (chord.getInversion()) {
-                    case 0:
-                        playNote(dimBaseNote, VELOCITY);
-                        playNote(dimBaseNote + 3, VELOCITY);
-                        playNote(dimBaseNote + 6, VELOCITY);
-                        break;
-                    case 1:
-                        playNote(dimBaseNote, VELOCITY);
-                        playNote(dimBaseNote + 3, VELOCITY);
-                        playNote(dimBaseNote - 6, VELOCITY);
-                        break;
-                    case 2:
+//                switch (chord.getInversion()) {
+//                    case 0:
+//                        playNote(dimBaseNote, VELOCITY);
+//                        playNote(dimBaseNote + 3, VELOCITY);
+//                        playNote(dimBaseNote + 6, VELOCITY);
+//                        break;
+//                    case 1:
+//                        playNote(dimBaseNote, VELOCITY);
+//                        playNote(dimBaseNote + 3, VELOCITY);
+//                        playNote(dimBaseNote - 6, VELOCITY);
+//                        break;
+//                    case 2:
                         playNote(dimBaseNote, VELOCITY);
                         playNote(dimBaseNote - 9, VELOCITY);
                         playNote(dimBaseNote - 6, VELOCITY);
-                        break;
-                }
+//                        break;
+//                }
                 break;
         }
     }
