@@ -58,7 +58,7 @@ public class Input {
     private class MidiInputReceiver implements Receiver {
         public void send(MidiMessage message, long timeStamp) {
             byte[] derivedMessage = message.getMessage();
-            if (((int) derivedMessage[2]) != 0) { // Only occur on down note, not on note release
+            if (derivedMessage.length > 1 && ((int) derivedMessage[2]) != 0) { // Only occur on down note, not on note release
                 playedNotes.add((int) derivedMessage[1]); // Append played note to List
                 timing.timeDifferentials.add(Math.abs(System.currentTimeMillis() - currentTimeStamp));
 

@@ -14,11 +14,23 @@ public class MachineLearning {
     static Chord lastChord = new Chord(-1, -1, -1);
     private static final int NUM_COL = 7, NUM_ROW = 7, INVERSIONS_TO_CHOOSE = 3;
     static Hmm<ObservationInteger> learntHmm;
+    public static int key = 0;
 
     public static void determineChords(List<Integer> playedNotesList, Hmm<ObservationInteger> hmm) {
         learntHmm = hmm;
         playedNotes = playedNotesList;
-        int key = getKey();
+        Thread keythread = new Thread() {
+            public void run() {
+                try {
+                    key = getKey();
+                } catch(Exception v) {
+                    System.out.println(v);
+                }
+            }
+        };
+
+        keythread.start();
+
         int[] notesInKey = GenChordProgression.keyMatrix[key];
 
         int currentNote = playedNotes.get(playedNotes.size() - 1) % 12;
