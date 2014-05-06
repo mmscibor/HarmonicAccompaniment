@@ -40,13 +40,22 @@ public class HiddenMarkovModel {
 
         double[] initialProbabilities = new double[NUM_STATES];
 
-        // Initiate the array of observed element transition probabilities (all 1 / 7)
+
         for (int i = 0; i < NUM_STATES; i++) {
             initialProbabilities[i] = 1 / 7.0;
         }
 
         // Set the probabilities of a state being the initial state (all 1 / 7)
         for (int i = 0; i < NUM_STATES; i++) {
+            // Initiate the array of observed element transition probabilities - assume equal probability among chord
+            // tones as well as a 15% probability of nonchord tones (equally distributed)
+            for (int j = 0; j < NUM_STATES; j++) {
+                initialProbabilities[j] = 0.15/4;
+            }
+            initialProbabilities[i] = 1/3.0-0.15;
+            initialProbabilities[(i+2)%7] = 1/3.0-0.15;
+            initialProbabilities[(i+4)%7] = 1/3.0-0.15;
+
             hmm.setPi(i, (1 / 7.0));
             hmm.setOpdf(i, new OpdfInteger(initialProbabilities));
             for (int j = 0; j < NUM_STATES; j++) {
